@@ -1,2 +1,2 @@
-# Hospital-Management-Software-HMS
+# Health Guardian
 A Robust Hospital Management Software.
