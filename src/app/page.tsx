@@ -1,12 +1,9 @@
-import React from "react";
+import Navbar from "./LandingPage/Navbar/navbar";
 
-const page = () => {
+export default function page() {
   return (
-    <div className="text-4xl text-green-500 text-center my-4">
-      Landing Page Was edited
-      <h2>Testing Commit</h2>
-    </div>
+    <main>
+      < Navbar />
+    </main>
   );
-};
-
-export default page;
+}
