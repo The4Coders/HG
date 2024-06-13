@@ -1,5 +1,9 @@
-export default function Home() {
+import Navbar from "./LandingPage/Navbar/navbar";
+
+export default function page() {
   return (
-    <h1 className="text-center text-2xl font-bold my-6">Landing page here</h1>
+    <main>
+      < Navbar />
+    </main>
   );
 }
