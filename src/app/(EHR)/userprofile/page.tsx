@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Layout from "../../components/layout";
 import {
   LineChart,
   Line,
@@ -15,13 +14,13 @@ import {
   Cell,
 } from "recharts";
 import { Calendar } from "@/components/ui/calendar";
-import BarChartComponent from "@/components/ui/charts/BarChartComponent";
-import AreaChartComponent from "@/components/ui/charts/AreaChartComponent";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import BarChartComponent from "@/components/charts/BarChartComponent";
+import Layout from "@/components/layout";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
