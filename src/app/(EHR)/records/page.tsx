@@ -1,3 +1,6 @@
+import AreaChartComponent from "@/components/charts/AreaChartComponent";
+import BarChartComponent from "@/components/charts/BarChartComponent";
+import LineChartComponent from "@/components/charts/LineChartComponent";
 import Layout from "@/components/layout";
 import {
   Breadcrumb,
@@ -7,10 +10,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import AreaChartComponent from "@/components/ui/charts/AreaChartComponent";
-import BarChartComponent from "@/components/ui/charts/BarChartComponent";
-import LineChartComponent from "@/components/ui/charts/LineChartComponent";
-import Line from "@/components/ui/charts/renderLinehart";
 import Image from "next/image";
 export default function page() {
   return (
