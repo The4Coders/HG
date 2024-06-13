@@ -16,8 +16,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Menu } from "lucide-react";
-import { NavItems } from "../config";
 import Image from "next/image";
+import { NavItems } from "@/app/config";
 export default function Header() {
   const navItems = NavItems();
   const [isNavOpen, setIsNavOpen] = useState(false);
