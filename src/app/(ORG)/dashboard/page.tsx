@@ -1,6 +1,6 @@
 "use client";
 
-import OrgLayout from "@/app/components/orgLayout";
+import OrgLayout from "@/components/orgLayout";
 import {
   Activity,
   ArrowDown,
