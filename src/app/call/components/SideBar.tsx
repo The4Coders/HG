@@ -14,7 +14,7 @@ const SideBar = () => {
     <SideBarContainer>
       <Box mb={2}>
         <Typography variant="h6" gutterBottom className="text-[#045357]">
-          28 Dec, 2023
+          Next Meeting: 28 Dec, 2023
         </Typography>
         <Typography variant="body2" gutterBottom className="text-[#004d40]">
           Discussion of blood test results and discussion of well-being.

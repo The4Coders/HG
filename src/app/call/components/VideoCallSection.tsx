@@ -4,6 +4,8 @@ import { Box, Typography, Avatar, Button, styled, Paper } from "@mui/material";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import CallIcon from "@mui/icons-material/Call";
 import MicIcon from "@mui/icons-material/Mic";
+import ChatIcon from "@mui/icons-material/Chat";
+import ScreenShareIcon from "@mui/icons-material/ScreenShare";
 
 const VideoContainer = styled(Paper)({
   padding: "16px",
@@ -32,10 +34,10 @@ const VideoCallSection = () => {
         />
       </Box>
       <Typography variant="h6" className="text-[#045357]">
-        Ronnie Fleming
+        Dr. Ronnie Fleming
       </Typography>
       <Typography variant="caption" className="text-[#004d40]">
-        00:15:24
+        Duration: 00:15:24
       </Typography>
       <Box mt={2} display="flex" justifyContent="center">
         <Button
@@ -58,6 +60,20 @@ const VideoCallSection = () => {
           sx={{ mx: 1, borderColor: "#045357", color: "#045357" }}
         >
           Mute
+        </Button>
+        <Button
+          variant="outlined"
+          startIcon={<ChatIcon />}
+          sx={{ mx: 1, borderColor: "#045357", color: "#045357" }}
+        >
+          Chat
+        </Button>
+        <Button
+          variant="outlined"
+          startIcon={<ScreenShareIcon />}
+          sx={{ mx: 1, borderColor: "#045357", color: "#045357" }}
+        >
+          Share Screen
         </Button>
       </Box>
     </VideoContainer>
