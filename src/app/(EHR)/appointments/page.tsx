@@ -63,7 +63,7 @@ export default function AppointmentPage() {
                         </p>
                       </div>
                     </Link>
-                    <Link href="/tele">
+                    <Link href="/telemedicine">
                       <div className="w-60 h-32 cursor-pointer border-2 shadow-md bg-[#00BFFF] text-white rounded-lg flex flex-col p-2">
                         <div className="w-10 h-10  border-2 rounded-full ml-auto bg-white flex justify-center items-center">
                           <Home color="blue" />
