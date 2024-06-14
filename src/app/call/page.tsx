@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import {
   Grid,
@@ -116,39 +117,69 @@ const Call = () => {
             <Typography variant="caption" className="text-[#004d40]">
               Duration: 00:15:24
             </Typography>
-            <Box mt={2} display="flex" justifyContent="center">
+            <Box mt={2} display="flex" justifyContent="center" flexWrap="wrap">
               <Button
                 variant="outlined"
                 startIcon={<CallIcon />}
-                sx={{ mx: 1, borderColor: "#045357", color: "#045357" }}
+                sx={{
+                  mx: 1,
+                  my: 0.5,
+                  borderColor: "#045357",
+                  color: "#045357",
+                  minWidth: "120px",
+                }}
               >
                 Call
               </Button>
               <Button
                 variant="outlined"
                 startIcon={<VideocamIcon />}
-                sx={{ mx: 1, borderColor: "#045357", color: "#045357" }}
+                sx={{
+                  mx: 1,
+                  my: 0.5,
+                  borderColor: "#045357",
+                  color: "#045357",
+                  minWidth: "120px",
+                }}
               >
                 Video
               </Button>
               <Button
                 variant="outlined"
                 startIcon={<MicIcon />}
-                sx={{ mx: 1, borderColor: "#045357", color: "#045357" }}
+                sx={{
+                  mx: 1,
+                  my: 0.5,
+                  borderColor: "#045357",
+                  color: "#045357",
+                  minWidth: "120px",
+                }}
               >
                 Mute
               </Button>
               <Button
                 variant="outlined"
                 startIcon={<ChatIcon />}
-                sx={{ mx: 1, borderColor: "#045357", color: "#045357" }}
+                sx={{
+                  mx: 1,
+                  my: 0.5,
+                  borderColor: "#045357",
+                  color: "#045357",
+                  minWidth: "120px",
+                }}
               >
                 Chat
               </Button>
               <Button
                 variant="outlined"
                 startIcon={<ScreenShareIcon />}
-                sx={{ mx: 1, borderColor: "#045357", color: "#045357" }}
+                sx={{
+                  mx: 1,
+                  my: 0.5,
+                  borderColor: "#045357",
+                  color: "#045357",
+                  minWidth: "120px",
+                }}
               >
                 Share Screen
               </Button>
@@ -165,24 +196,33 @@ const Call = () => {
                 alignItems="center"
                 justifyContent="space-between"
                 mb={2}
+                flexWrap="wrap"
               >
                 <Avatar alt={activity.name} src="/profilePic.jpg" />
                 <Typography
                   variant="body1"
-                  sx={{ flexGrow: 1, mx: 2 }}
+                  sx={{ flexGrow: 1, mx: 2, minWidth: "120px" }}
                   className="text-[#045357]"
                 >
                   {activity.name}
                 </Typography>
-                <Typography variant="body2" className="text-[#004d40]">
+                <Typography
+                  variant="body2"
+                  sx={{ minWidth: "80px" }}
+                  className="text-[#004d40]"
+                >
                   {activity.date}
                 </Typography>
-                <Typography variant="body2" className="text-[#004d40]">
+                <Typography
+                  variant="body2"
+                  sx={{ minWidth: "80px" }}
+                  className="text-[#004d40]"
+                >
                   {activity.time}
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ flexGrow: 2, mx: 2 }}
+                  sx={{ flexGrow: 2, mx: 2, minWidth: "160px" }}
                   className="text-[#004d40]"
                 >
                   {activity.summary}
