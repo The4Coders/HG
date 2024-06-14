@@ -24,7 +24,7 @@ const Header = () => {
           <AddIcon />
         </IconButton>
         <Typography variant="h6" style={{ flexGrow: 1, textAlign: "center" }}>
-          Dashboard
+          Virtual Meeting Dashboard
         </Typography>
         <Avatar src="/user.png" />
       </Toolbar>
