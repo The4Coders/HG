@@ -9,7 +9,7 @@ const SignUp: React.FC = () => {
     <div className="bg-gradient-animation bg-gradient-to-r from-white to-[#063B3F] flex items-center justify-center min-h-screen">
       <div className="bg-[#7C989A] w-[840px] h-[600px] rounded-[20px] border-[2px] border-black border-t-0 border-opacity-30 shadow-md">
         <div className="bg-[#65898C] w-[820px] h-[584px] rounded-[20px] mx-auto shadow-xl flex border-[2px] border-black border-t-0 border-opacity-15">
-          <div className="bg-[#063B3F] flex-1 rounded-l-[20px] mb-5 rounded-r-[160px] relative flex justify-center items-center">
+          <div className="bg-[#063B3F] flex-1 rounded-l-[20px] rounded-r-[160px] relative flex justify-center items-center">
             <div className="text-white text-center p-4 flex flex-col items-center">
               <h2 className="text-[42px] font-medium mb-10">Welcome Back</h2>
               <p>Enter your personal details</p>
