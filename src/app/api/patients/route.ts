@@ -23,3 +23,13 @@ export async function GET(req: Request, res: Response) {
   const patients = await Patient.find();
   return NextResponse.json({ patients });
 }
+
+export async function DELETE(req: any, res: Response) {
+  const id = req.nextUrl.searchParams.get("id");
+  await connectMongoDB();
+  await Patient.findByIdAndDelete(id);
+  return NextResponse.json(
+    { message: "Patient deleted successfully" },
+    { status: 200 }
+  );
+}
