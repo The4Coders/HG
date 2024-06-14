@@ -81,7 +81,7 @@ const HeroSection: React.FC = () => {
               {animatedText} {}
             </h2>
           </div>
-          <p className="text-gray-500 text-bs w-[550px] pl-10 mt-10 leading-[1.8]">
+          <p className="text-gray-500 w-[550px] pl-10 mt-10 leading-[1.8]">
             Health Guardian is now open, safe and available online, providing
             clinical excellence with the ease of virtual care. Schedule a
             virtual visit with your doctor at any time of day or night.
