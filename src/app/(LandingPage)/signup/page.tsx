@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 // import 'bootstrap-icons/font/bootstrap-icons.css';
-import Link from 'next/link';
+import Link from "next/link";
 
 const SignUp: React.FC = () => {
   return (
@@ -43,31 +43,39 @@ const SignUp: React.FC = () => {
               <p className="text-gray-500 text-center">
                 or use your email for registration
               </p>
-              <div className="flex items-center flex-col">
-                <input
-                  type="email"
-                  required
-                  placeholder="Email"
-                  className="border border-gray-300 bg-[#eeeeee] rounded-[8px] py-2 px-4 focus:outline-none focus:border-[#063b3f] w-[300px]"
-                />
-                <input
-                  type="password"
-                  required
-                  placeholder="Password"
-                  className="border border-gray-300 bg-[#eeeeee] rounded-[8px] py-2 px-4 mt-4 focus:outline-none focus:border-[#063b3f] w-[300px]"
-                />
-                <input
-                  type="password"
-                  required
-                  placeholder="Confirm Password"
-                  className="border border-gray-300 bg-[#eeeeee] rounded-[8px] py-2 px-4 mt-4 focus:outline-none focus:border-[#063b3f] w-[300px]"
-                />
-              </div>
-              <div className="text-center">
-                <button className="bg-[#063b3f] text-white py-3 px-14 rounded-[8px] mt-4 uppercase w-[200px] moving-wave-button">
-                  Sign Up
-                </button>
-              </div>
+              <form action="" id="signup-form">
+                <div className="flex items-center flex-col">
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="Email"
+                    className="border border-gray-300 bg-[#eeeeee] rounded-[8px] py-2 px-4 focus:outline-none focus:border-[#063b3f] w-[300px]"
+                  />
+                  <input
+                    type="password"
+                    name="password"
+                    required
+                    placeholder="Password"
+                    className="border border-gray-300 bg-[#eeeeee] rounded-[8px] py-2 px-4 mt-4 focus:outline-none focus:border-[#063b3f] w-[300px]"
+                  />
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    required
+                    placeholder="Confirm Password"
+                    className="border border-gray-300 bg-[#eeeeee] rounded-[8px] py-2 px-4 mt-4 focus:outline-none focus:border-[#063b3f] w-[300px]"
+                  />
+                </div>
+                <div className="text-center">
+                  <button
+                    className="bg-[#063b3f] text-white py-3 px-14 rounded-[8px] mt-4 uppercase w-[200px] moving-wave-button"
+                    type="submit"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
