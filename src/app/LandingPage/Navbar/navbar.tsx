@@ -44,7 +44,7 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex space-x-10">
-            <Link href="/" legacyBehavior>
+            <Link href="#solutions" legacyBehavior>
               <a className="text-black text-[20px] relative">Solutions</a>
             </Link>
             <Link href="/" legacyBehavior>
