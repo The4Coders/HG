@@ -1,9 +1,10 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client';
 
-/* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import ScrollReveal from 'scrollreveal';
 
 const SecondSection: React.FC = () => {
   const [expandedItem, setExpandedItem] = useState<number | null>(null);
@@ -19,15 +20,36 @@ const SecondSection: React.FC = () => {
     setExpandedItem(expandedItem === index ? null : index);
   };
 
+  useEffect(() => {
+    const sr = ScrollReveal();
+
+    sr.reveal('.left', {
+      duration: 1500,
+      origin: 'left',
+      distance: '350px',
+      easing: 'ease-out',
+      reset: true,
+    });
+
+    sr.reveal('.right', {
+      duration: 1500,
+      origin: 'right',
+      distance: '350px',
+      easing: 'ease-out',
+      reset: true,
+    });
+  }, []);
+
   return (
-    <div className="bg-[#E6E4E5] pt-24 pb-28" id='solutions'>
+    <div className="bg-[#E6E4E5] pt-24 pb-28" id="solutions">
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-x-24">
-        <div className="w-[600px]">
+        <div className="w-[600px] left">
           <h2 className="text-5xl font-bold text-gray-500">
-            Top-Quality <span className="text-[#063b3f] text-6xl">Virtual Primary</span>{' '}
+            Top-Quality{' '}
+            <span className="text-[#063b3f] text-6xl">Virtual Primary</span>{' '}
             Care Visits
           </h2>
-          <p className="mt-6 text-gray-600 w-[550px] leading-[1.8]">
+          <p className="mt-6 text-gray-600 w-[510px] leading-[1.8]">
             Book A Virtual Care Visit, Chat Via Video On Your Smartphone, And
             Pick Up Your Prescription From Your Pharmacy. Our Advanced
             Technology Is Integrated With Most Major Health Insurances.
@@ -77,7 +99,7 @@ const SecondSection: React.FC = () => {
           </Link>
         </div>
 
-        <div className="mb-8 md:mb-0 w-[600px]">
+        <div className="mb-8 md:mb-0 w-[600px] right">
           <div className="relative">
             <Image
               src="/images/consultant.jpg"
