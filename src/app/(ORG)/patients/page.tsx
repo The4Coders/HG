@@ -173,7 +173,7 @@ const columns: Column<Patient>[] = [
   { Header: "Status", accessor: "status" },
   { Header: "", accessor: "actions" },
 ];
-
+// function to fetch the patient data from db
 export default function Page() {
   const [searchInput, setSearchInput] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState<Record<string, boolean>>({});
