@@ -4,6 +4,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ClipboardPlus, Hospital, MessageCircleMore, Pill } from 'lucide-react';
+import ScrollReveal from 'scrollreveal';
 
 const HeroSection: React.FC = () => {
   const [animatedText, setAnimatedText] = useState('');
@@ -12,12 +13,27 @@ const HeroSection: React.FC = () => {
 
   const divs = [
     { className: 'top-28 right-0', icon: <Pill />, text: 'Medicine' },
-    { className: 'bottom-56 left-0', icon: <MessageCircleMore />, text: '24/7 Consultation' },
-    { className: 'bottom-28 right-24', icon: <ClipboardPlus />, text: 'Electronic' },
-    { className: 'top-32 left-24', icon: <Hospital />, text: '25 Clinic Locations' },
+    {
+      className: 'bottom-56 left-0',
+      icon: <MessageCircleMore />,
+      text: '24/7 Consultation',
+    },
+    {
+      className: 'bottom-28 right-24',
+      icon: <ClipboardPlus />,
+      text: 'Electronic',
+    },
+    {
+      className: 'top-32 left-24',
+      icon: <Hospital />,
+      text: '25 Clinic Locations',
+    },
   ];
 
-  const texts = useMemo(() => ['Health', 'Medicine', 'Wellness', 'Fitness', 'Nutrition'], []);
+  const texts = useMemo(
+    () => ['Health', 'Medicine', 'Wellness', 'Fitness', 'Nutrition'],
+    []
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -66,11 +82,31 @@ const HeroSection: React.FC = () => {
     }, 0);
   };
 
+  useEffect(() => {
+    const sr = ScrollReveal();
+
+    sr.reveal('.reveal', {
+      distance: '250px',
+      duration: 1500,
+      easing: 'ease-out',
+      origin: 'top',
+      reset: true,
+    });
+
+    sr.reveal('.bottom', {
+      distance: '200px',
+      duration: 1000,
+      easing: 'ease-out',
+      origin: 'bottom',
+      reset: true,
+    });
+  }, []);
+
   return (
     <section className="bg-[#E6E4E5] py-12">
       <div className="container mx-auto px-16 flex flex-col md:flex-row items-center h-[100vh]">
-        <div className="first md:w-1/2 mb-8 md:mb-0 h-[600px] pt-20 slide-in-left">
-          <div className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 pl-10">
+        <div className="first md:w-1/2 mb-8 md:mb-0 h-[600px] pt-20">
+          <div className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 pl-10 reveal">
             <h2 className="mb-4 text-gray-500 text-[70px]">Where</h2>
             <h2 className="mb-4 text-gray-500 text-[70px]">Tech Meets</h2>
             <h2
@@ -81,18 +117,18 @@ const HeroSection: React.FC = () => {
               {animatedText} {}
             </h2>
           </div>
-          <p className="text-gray-500 w-[550px] pl-10 mt-10 leading-[1.8]">
+          <p className="text-gray-500 w-[550px] pl-10 mt-10 leading-[1.8] reveal">
             Health Guardian is now open, safe and available online, providing
             clinical excellence with the ease of virtual care. Schedule a
             virtual visit with your doctor at any time of day or night.
           </p>
           <Link href="/signup">
-            <button className="bg-[#063b3f] text-white text-[20px] ml-10 mt-12 py-2 px-6 rounded-[50px] hover:bg-[#045357] transition duration-300 h-[60px] w-56 hover:transform hover:translate-x-4 hover:shadow-lg moving-wave-button">
+            <button className="bg-[#063b3f] text-white text-[20px] ml-10 mt-12 py-2 px-6 rounded-[50px] hover:bg-[#045357] transition duration-300 h-[60px] w-56 hover:transform hover:translate-x-4 hover:shadow-lg moving-wave-button reveal">
               Check it Out
             </button>
           </Link>
         </div>
-        <div className="second md:w-1/2 relative slide-in-right">
+        <div className="second md:w-1/2 relative reveal">
           <Image
             src="/images/nurse.gif"
             alt="Nurse"
@@ -109,7 +145,9 @@ const HeroSection: React.FC = () => {
           {divs.map((div, index) => (
             <div
               key={index}
-              className={`absolute ${div.className} bg-[#E6E4E5] p-3 border-[2px] border-white rounded-[50px] flex items-center space-x-2 blink-animation transition-all duration-1000 ${
+              className={`absolute ${
+                div.className
+              } bg-[#E6E4E5] p-3 border-[2px] border-white rounded-[50px] flex items-center space-x-2 blink-animation transition-all duration-1000 ${
                 currentDiv === index ? 'fade-in' : 'fade-out'
               }`}
             >
@@ -126,7 +164,7 @@ const HeroSection: React.FC = () => {
         <div className="container mx-auto p-4 bg-white rounded-[30px] bg-opacity-30 backdrop-blur-lg border border-[#E6E4E5] w-[1150px]">
           <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8">
             {/* First content */}
-            <div className="hop flex flex-col items-start p-4 rounded-lg">
+            <div className="hop flex flex-col items-start p-4 rounded-lg bottom">
               <Image
                 src="/images/system/teeth.png"
                 alt="Teeth"
@@ -145,7 +183,7 @@ const HeroSection: React.FC = () => {
             </div>
 
             {/* Second content */}
-            <div className="hop flex flex-col items-start p-4 rounded-lg">
+            <div className="hop flex flex-col items-start p-4 rounded-lg bottom">
               <Image
                 src="/images/system/brain.png"
                 alt="Brain"
@@ -163,7 +201,7 @@ const HeroSection: React.FC = () => {
             </div>
 
             {/* Third content */}
-            <div className="hop flex flex-col items-start p-4 rounded-lg">
+            <div className="hop flex flex-col items-start p-4 rounded-lg bottom">
               <Image
                 src="/images/system/eye.png"
                 alt="Eye"
