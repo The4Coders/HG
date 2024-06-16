@@ -64,6 +64,10 @@ export default function Page() {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [age, setAge] = useState();
+  const [phone, setPhone] = useState("");
+  const [diagnosis, setDiagnosis] = useState("");
   useEffect(() => {
     const fetchPatients = async () => {
       try {
@@ -120,6 +124,44 @@ export default function Page() {
   };
   const handleModalToggle = () => {
     setIsModalOpen(!isModalOpen);
+  };
+  // modal functions
+  const handleNameChange = (e: any) => {
+    setName(e.target.value);
+  };
+  const handleAgeChange = (e: any) => {
+    setAge(e.target.value);
+  };
+  const handlePhoneChange = (e: any) => {
+    setPhone(e.target.value);
+  };
+  const handleDiagnosis = (e: any) => {
+    setDiagnosis(e.target.value);
+  };
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    console.log("Button clicked");
+    const payload = {
+      name: name,
+      age: age,
+      phone: phone,
+      diagnosis: diagnosis,
+    };
+    console.log("Payload:", payload);
+    try {
+      const res = await fetch("https//localhost:3000/api/patients", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSN.stringfy({ payload }),
+      });
+      if (res.ok) {
+        console.log("Patient Added!");
+      }
+    } catch (e: any) {
+      console.log("Error:", e);
+    }
   };
   return (
     <main>
@@ -355,7 +397,7 @@ export default function Page() {
                   </button>
                 </div>
                 {/* Add Patient form goes here */}
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="mb-4">
                     <label
                       htmlFor="patient-name"
@@ -367,6 +409,8 @@ export default function Page() {
                       type="text"
                       id="patient-name"
                       className="block w-full p-2 border border-gray-300 rounded-lg"
+                      onChange={handleNameChange}
+                      value={name}
                     />
                   </div>
                   <div className="mb-4">
@@ -380,6 +424,8 @@ export default function Page() {
                       type="number"
                       id="patient-age"
                       className="block w-full p-2 border border-gray-300 rounded-lg"
+                      onChange={handleAgeChange}
+                      value={age}
                     />
                   </div>
                   <div className="mb-4">
@@ -390,9 +436,11 @@ export default function Page() {
                       Phone Number
                     </label>
                     <input
-                      type="text"
+                      type="tel"
                       id="patient-phone"
                       className="block w-full p-2 border border-gray-300 rounded-lg"
+                      value={phone}
+                      onChange={handlePhoneChange}
                     />
                   </div>
                   <div className="mb-4">
@@ -406,6 +454,8 @@ export default function Page() {
                       type="text"
                       id="patient-diagnosis"
                       className="block w-full p-2 border border-gray-300 rounded-lg"
+                      value={diagnosis}
+                      onChange={handleDiagnosis}
                     />
                   </div>
                   <div className="flex justify-center items-center w-full">
