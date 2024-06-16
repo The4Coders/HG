@@ -12,7 +12,7 @@ import {
   TableInstance,
 } from "react-table";
 import Link from "next/link";
-
+import { Toaster, toast } from "sonner";
 interface Patient {
   generatedId: number;
   _id: string;
@@ -149,15 +149,19 @@ export default function Page() {
     };
     console.log("Payload:", payload);
     try {
-      const res = await fetch("https//localhost:3000/api/patients", {
+      const res = await fetch("http://localhost:3000/api/patients", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSN.stringfy({ payload }),
+        body: JSON.stringify({ name, age, phone, diagnosis }),
       });
       if (res.ok) {
         console.log("Patient Added!");
+        setTimeout(() => {
+          toast.success("Patient added successfully!");
+          setIsModalOpen(false);
+        }, 2000);
       }
     } catch (e: any) {
       console.log("Error:", e);
@@ -165,6 +169,7 @@ export default function Page() {
   };
   return (
     <main>
+      <Toaster position="top-right" />
       <OrgLayout>
         <main className="bg-white w-full">
           {/* Section to add Patient */}
