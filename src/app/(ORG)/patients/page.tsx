@@ -1,20 +1,21 @@
 // @ts-nocheck
 /* eslint-disable */
-"use client";
 
-import { useState, useMemo } from "react";
+"use client";
+import { useState, useMemo, useEffect } from "react";
 import OrgLayout from "@/components/orgLayout";
-import { CirclePlus, EllipsisVertical } from "lucide-react";
+import { CirclePlus } from "lucide-react";
 import {
   useTable,
   usePagination,
   useGlobalFilter,
   Column,
-  Row,
   TableInstance,
 } from "react-table";
+import Link from "next/link";
 
 interface Patient {
+  generatedId: number;
   name: string;
   id: string;
   age: number;
@@ -22,150 +23,12 @@ interface Patient {
   diagnosis: string;
   admissionDate: string;
   status: string;
-  actions: any;
+  actions?: any;
 }
 
-const mockData: Patient[] = [
-  {
-    name: "John Doe",
-    id: "001",
-    age: 25,
-    phone: "1234567890",
-    diagnosis: "Flu",
-    admissionDate: "2023-01-01",
-    status: "Admitted",
-  },
-  {
-    name: "Jane Smith",
-    id: "002",
-    age: 30,
-    phone: "1234567891",
-    diagnosis: "Cold",
-    admissionDate: "2023-02-01",
-    status: "Discharged",
-  },
-  {
-    name: "Bob Johnson",
-    id: "003",
-    age: 45,
-    phone: "1234567892",
-    diagnosis: "Asthma",
-    admissionDate: "2023-03-01",
-    status: "Admitted",
-  },
-  {
-    name: "Alice Brown",
-    id: "004",
-    age: 35,
-    phone: "1234567893",
-    diagnosis: "Diabetes",
-    admissionDate: "2023-04-01",
-    status: "Admitted",
-  },
-  {
-    name: "Charlie Davis",
-    id: "005",
-    age: 28,
-    phone: "1234567894",
-    diagnosis: "Hypertension",
-    admissionDate: "2023-05-01",
-    status: "Admitted",
-  },
-  {
-    name: "Eve Miller",
-    id: "006",
-    age: 22,
-    phone: "1234567895",
-    diagnosis: "Migraine",
-    admissionDate: "2023-06-01",
-    status: "Discharged",
-  },
-  {
-    name: "Frank Wilson",
-    id: "007",
-    age: 40,
-    phone: "1234567896",
-    diagnosis: "Cancer",
-    admissionDate: "2023-07-01",
-    status: "Admitted",
-  },
-  {
-    name: "Grace Lee",
-    id: "008",
-    age: 55,
-    phone: "1234567897",
-    diagnosis: "Arthritis",
-    admissionDate: "2023-08-01",
-    status: "Admitted",
-  },
-  {
-    name: "Henry Moore",
-    id: "009",
-    age: 32,
-    phone: "1234567898",
-    diagnosis: "Back Pain",
-    admissionDate: "2023-09-01",
-    status: "Admitted",
-  },
-  {
-    name: "Ivy Clark",
-    id: "010",
-    age: 50,
-    phone: "1234567899",
-    diagnosis: "Heart Disease",
-    admissionDate: "2023-10-01",
-    status: "Admitted",
-  },
-  {
-    name: "Jack White",
-    id: "011",
-    age: 27,
-    phone: "1234567800",
-    diagnosis: "Allergies",
-    admissionDate: "2023-11-01",
-    status: "Discharged",
-  },
-  {
-    name: "Kelly Green",
-    id: "012",
-    age: 38,
-    phone: "1234567801",
-    diagnosis: "Kidney Stones",
-    admissionDate: "2023-12-01",
-    status: "Admitted",
-  },
-  {
-    name: "Liam Harris",
-    id: "013",
-    age: 48,
-    phone: "1234567802",
-    diagnosis: "Stroke",
-    admissionDate: "2024-01-01",
-    status: "Admitted",
-  },
-  {
-    name: "Mia Martinez",
-    id: "014",
-    age: 29,
-    phone: "1234567803",
-    diagnosis: "Pneumonia",
-    admissionDate: "2024-02-01",
-    status: "Admitted",
-  },
-  {
-    name: "Noah Thompson",
-    id: "015",
-    age: 31,
-    phone: "1234567804",
-    diagnosis: "Ulcer",
-    admissionDate: "2024-03-01",
-    status: "Admitted",
-  },
-];
-
 const columns: Column<Patient>[] = [
+  { Header: "ID", accessor: "generatedId" },
   { Header: "Name", accessor: "name" },
-  { Header: "ID", accessor: "id" },
   { Header: "Age", accessor: "age" },
   { Header: "Phone Number", accessor: "phone" },
   { Header: "Diagnosis", accessor: "diagnosis" },
@@ -174,10 +37,47 @@ const columns: Column<Patient>[] = [
   { Header: "", accessor: "actions" },
 ];
 
+const getPatient = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/api/patients", {
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      throw new Error("Failed to fetch Patients");
+    }
+    const patientData = await res.json();
+    const patientsWithGeneratedId = patientData.patients.map(
+      (patient: any, index: number) => ({
+        generatedId: index + 1,
+        ...patient,
+        isOpen: false, // Add isOpen property to track dropdown state
+      })
+    );
+    return patientsWithGeneratedId;
+  } catch (e: any) {
+    console.log("Error loading patients:", e);
+    return [];
+  }
+};
+
 export default function Page() {
+  const [patients, setPatients] = useState<Patient[]>([]);
   const [searchInput, setSearchInput] = useState("");
-  const [dropdownOpen, setDropdownOpen] = useState<Record<string, boolean>>({});
-  const data = useMemo(() => mockData, []);
+
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const patientsData = await getPatient();
+        console.log("Fetched patients data:", patientsData); // Debug log
+        setPatients(patientsData);
+      } catch (e) {
+        console.error("Failed to fetch patients in useEffect:", e);
+      }
+    };
+    fetchPatients();
+  }, []);
+
+  const data = useMemo(() => patients || [], [patients]);
   const {
     getTableProps,
     getTableBodyProps,
@@ -206,10 +106,18 @@ export default function Page() {
   };
 
   const toggleDropdown = (id: string) => {
-    setDropdownOpen((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
+    setPatients((prevPatients) =>
+      prevPatients.map((patient) =>
+        patient.generatedId === id
+          ? { ...patient, isOpen: !patient.isOpen }
+          : patient
+      )
+    );
+  };
+
+  const handleActionClick = (actualId: string) => {
+    console.log("Actual ID:", actualId);
+    // Call your get by ID function here
   };
 
   return (
@@ -297,37 +205,45 @@ export default function Page() {
                           {cell.column.id === "actions" ? (
                             <div className="relative">
                               <button
-                                onClick={() => toggleDropdown(row.original.id)}
+                                onClick={() =>
+                                  toggleDropdown(row.original.generatedId)
+                                }
                                 className="text-blue-600 hover:text-blue-900"
                               >
                                 Actions
                               </button>
-                              {dropdownOpen[row.original.id] && (
+                              {row.original.isOpen && (
                                 <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
                                   <ul className="py-1 text-gray-700">
                                     <li>
-                                      <a
-                                        href="#"
-                                        className="block px-4 py-2 hover:bg-gray-100"
+                                      <button
+                                        onClick={() =>
+                                          handleActionClick(row.original.id)
+                                        }
+                                        className="w-full block px-4 py-2 hover:bg-gray-100"
                                       >
-                                        Edit
-                                      </a>
+                                        <Link href="/edit">Edit</Link>
+                                      </button>
                                     </li>
                                     <li>
-                                      <a
-                                        href="#"
+                                      <button
+                                        onClick={() =>
+                                          handleActionClick(row.original.id)
+                                        }
                                         className="block px-4 py-2 hover:bg-gray-100"
                                       >
                                         Preview
-                                      </a>
+                                      </button>
                                     </li>
                                     <li>
-                                      <a
-                                        href="#"
+                                      <button
+                                        onClick={() =>
+                                          handleActionClick(row.original.id)
+                                        }
                                         className="block px-4 py-2 hover:bg-gray-100"
                                       >
                                         Delete
-                                      </a>
+                                      </button>
                                     </li>
                                   </ul>
                                 </div>
@@ -354,7 +270,8 @@ export default function Page() {
                   <button
                     onClick={() => previousPage()}
                     disabled={!canPreviousPage}
-                    className="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    className="flex items-center justify-center px-4 h-10 ms-0
+                  leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <span className="sr-only">Previous</span>
                     <svg
@@ -378,11 +295,11 @@ export default function Page() {
                   <li key={pageNumber}>
                     <button
                       onClick={() => gotoPage(pageNumber)}
-                      className={`flex items-center justify-center px-4 h-10 leading-tight ${
-                        pageIndex === pageNumber
-                          ? "text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700"
-                          : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                      } dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                      className={`flex items-center justify-center px-4 h-10 leading-tight border ${
+                        pageNumber === pageIndex
+                          ? "bg-blue-500 text-white"
+                          : "bg-white text-gray-500"
+                      } border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
                     >
                       {pageNumber + 1}
                     </button>
@@ -392,7 +309,7 @@ export default function Page() {
                   <button
                     onClick={() => nextPage()}
                     disabled={!canNextPage}
-                    className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-s-0 border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <span className="sr-only">Next</span>
                     <svg
