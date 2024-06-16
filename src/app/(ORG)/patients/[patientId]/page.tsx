@@ -11,8 +11,41 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-export default function Page() {
+export default function Page({ params }: any) {
+  // const router = useRouter();
+  // const { id } = router.query;
+  const [patient, setPatient] = useState(null);
+  const [loading, setLoading] = useState(true);
+  // useEffect(() => {
+  //   const fetchPatient = async () => {
+  //     try {
+  //       const res = await fetch(`/api/patients/${id}`);
+  //       if (!res.ok) {
+  //         throw new Error("Failed to fetch patient");
+  //       }
+  //       const data = await res.json();
+  //       setPatient(data.patient); // Assuming your API returns { patient: {...} }
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching patient:", error);
+  //     }
+  //   };
+
+  //   if (id) {
+  //     fetchPatient();
+  //   }
+  // }, [id]);
+
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (!patient) {
+  //   return <div>Patient not found</div>;
+  // }
   return (
     <main>
       <OrgLayout>

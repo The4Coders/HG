@@ -15,6 +15,7 @@ import Link from "next/link";
 
 interface Patient {
   generatedId: number;
+  _id: string;
   name: string;
   id: string;
   age: number;
@@ -198,7 +199,7 @@ export default function Page() {
                 {page.map((row: any) => {
                   prepareRow(row);
                   return (
-                    <tr {...row.getRowProps()} key={row.id}>
+                    <tr {...row.getRowProps()} key={row._id}>
                       {row.cells.map((cell: any) => (
                         <td
                           {...cell.getCellProps()}
@@ -219,10 +220,12 @@ export default function Page() {
                                 <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
                                   <ul className="py-1 text-gray-700">
                                     <li>
-                                      <Link href="/patients/edit">
+                                      <Link
+                                        href={`/patients/${row.original._id}`}
+                                      >
                                         <button
                                           onClick={() =>
-                                            handleActionClick(row.original.id)
+                                            handleActionClick(row.original._id)
                                           }
                                           className="flex justify-start w-full  px-4 py-2 hover:bg-gray-100"
                                         >
@@ -233,7 +236,7 @@ export default function Page() {
                                     <li>
                                       <button
                                         onClick={() =>
-                                          handleActionClick(row.original.id)
+                                          handleActionClick(row.original._id)
                                         }
                                         className="flex justify-start w-full px-4 py-2 hover:bg-gray-100"
                                       >
