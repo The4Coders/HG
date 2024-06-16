@@ -3,7 +3,7 @@
 "use client";
 import { useState, useMemo, useEffect } from "react";
 import OrgLayout from "@/components/orgLayout";
-import { CirclePlus } from "lucide-react";
+import { CirclePlus, X } from "lucide-react";
 import {
   useTable,
   usePagination,
@@ -49,7 +49,7 @@ const getPatient = async () => {
       (patient: any, index: number) => ({
         generatedId: index + 1,
         ...patient,
-        isOpen: false, // Add isOpen property to track dropdown state
+        isOpen: false,
       })
     );
     return patientsWithGeneratedId;
@@ -62,12 +62,12 @@ const getPatient = async () => {
 export default function Page() {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [searchInput, setSearchInput] = useState("");
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     const fetchPatients = async () => {
       try {
         const patientsData = await getPatient();
-        console.log("Fetched patients data:", patientsData); // Debug log
+        console.log("Fetched patients data:", patientsData);
         setPatients(patientsData);
       } catch (e) {
         console.error("Failed to fetch patients in useEffect:", e);
@@ -116,9 +116,10 @@ export default function Page() {
 
   const handleActionClick = (actualId: string) => {
     console.log("Actual ID:", actualId);
-    // Call your get by ID function here
   };
-
+  const handleModalToggle = () => {
+    setIsModalOpen(!isModalOpen);
+  };
   return (
     <main>
       <OrgLayout>
@@ -163,7 +164,10 @@ export default function Page() {
               </div>
             </form>
 
-            <button className="bg-primary text-white p-1.5 px-2 rounded-md flex justify-start items-center gap-x-2">
+            <button
+              onClick={handleModalToggle}
+              className="bg-primary text-white p-1.5 px-2 rounded-md flex justify-start items-center gap-x-2"
+            >
               <CirclePlus color="white" size={15} />
               Add a Patient
             </button>
@@ -333,6 +337,86 @@ export default function Page() {
               </ul>
             </nav>
           </section>
+          {/*  */}
+          {/* Modal */}
+          {isModalOpen && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-2xl font-bold ">Add Patient</h2>
+                  <button
+                    className="text-gray-600 hover:text-gray-800"
+                    onClick={handleModalToggle}
+                  >
+                    <X />
+                  </button>
+                </div>
+                {/* Add Patient form goes here */}
+                <form>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="patient-name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="patient-name"
+                      className="block w-full p-2 border border-gray-300 rounded-lg"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="patient-age"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Age
+                    </label>
+                    <input
+                      type="number"
+                      id="patient-age"
+                      className="block w-full p-2 border border-gray-300 rounded-lg"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="patient-phone"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Phone Number
+                    </label>
+                    <input
+                      type="text"
+                      id="patient-phone"
+                      className="block w-full p-2 border border-gray-300 rounded-lg"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="patient-diagnosis"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Diagnosis
+                    </label>
+                    <input
+                      type="text"
+                      id="patient-diagnosis"
+                      className="block w-full p-2 border border-gray-300 rounded-lg"
+                    />
+                  </div>
+                  <div className="flex justify-center items-center w-full">
+                    <button
+                      type="submit"
+                      className="w-full bg-primary text-white p-2 rounded-lg"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
         </main>
       </OrgLayout>
     </main>
