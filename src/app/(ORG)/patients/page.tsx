@@ -73,17 +73,33 @@ export default function Page() {
   const [selectedPatientId, setSelectedPatientId] = useState<string | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const fetchPatients = async () => {
+    const fetchData = async () => {
       try {
-        const patientsData = await getPatient();
-        console.log("Fetched patients data:", patientsData);
-        setPatients(patientsData);
-      } catch (e) {
-        console.error("Failed to fetch patients in useEffect:", e);
+        const res = await fetch("http://localhost:3000/api/patients", {
+          cache: "no-store",
+        });
+        if (!res.ok) {
+          throw new Error("Failed to fetch Patients");
+        }
+        const patientData = await res.json(); // Parse JSON data here
+        const patientsWithGeneratedId = patientData.patients.map(
+          (patient: any, index: number) => ({
+            generatedId: index + 1,
+            ...patient,
+            isOpen: false,
+          })
+        );
+        setPatients(patientsWithGeneratedId);
+        setIsLoading(false); // Set loading state to false after fetch completes
+      } catch (e: any) {
+        console.log("Error loading patients:", e);
+        setPatients([]); // Ensure patients state is set to empty array on error
       }
     };
-    fetchPatients();
+
+    fetchData();
   }, []);
 
   const data = useMemo(() => patients || [], [patients]);
@@ -103,11 +119,14 @@ export default function Page() {
     setPageSize,
     setGlobalFilter,
   }: TableInstance<Patient> = useTable(
-    { columns, data, initialState: { pageIndex: 0, pageSize: 10 } },
+    {
+      columns,
+      data: patients,
+      initialState: { pageIndex: 0, pageSize: 10 },
+    },
     useGlobalFilter,
     usePagination
   );
-
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value || "";
     setGlobalFilter(value);
@@ -143,36 +162,95 @@ export default function Page() {
   const handleDiagnosis = (e: any) => {
     setDiagnosis(e.target.value);
   };
+  // end modal funcitons
+  //
   // Function to add a new patient
-  const handleSubmit = async (e: any) => {
+  // const handleSubmit = async (e: any) => {
+  //   e.preventDefault();
+  //   console.log("Button clicked");
+  //   const payload = {
+  //     name: name,
+  //     age: age,
+  //     phone: phone,
+  //     diagnosis: diagnosis,
+  //   };
+  //   console.log("Payload:", payload);
+  //   try {
+  //     const res = await fetch("http://localhost:3000/api/patients", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ name, age, phone, diagnosis }),
+  //     });
+  //     // if (res.ok) {
+  //     //   console.log("Patient Added!");
+  //     //   setTimeout(() => {
+  //     //     toast.success("Patient added successfully!");
+  //     //     setIsModalOpen(false);
+  //     //   }, 2000);
+  //     // }
+  //     if (res.ok) {
+  //       const newPatient = await res.json(); // Assuming the new patient data is returned from the API
+  //       setPatients((prevPatients) => [...prevPatients, newPatient]);
+  //       toast.success("Patient added successfully!");
+  //       setIsModalOpen(false);
+  //     }
+  //   } catch (e: any) {
+  //     console.log("Error:", e);
+  //   }
+  // };
+  //
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Button clicked");
+
     const payload = {
       name: name,
-      age: age,
+      age: parseInt(age),
       phone: phone,
       diagnosis: diagnosis,
     };
-    console.log("Payload:", payload);
+
     try {
+      setIsLoading(true);
+
       const res = await fetch("http://localhost:3000/api/patients", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, age, phone, diagnosis }),
+        body: JSON.stringify(payload),
       });
+
       if (res.ok) {
-        console.log("Patient Added!");
-        setTimeout(() => {
-          toast.success("Patient added successfully!");
-          setIsModalOpen(false);
-        }, 2000);
+        const newPatient = await res.json();
+        setPatients((prevPatients) => [...prevPatients, newPatient]);
+        toast.success("Patient added successfully, reload!");
+        setIsModalOpen(false);
+        setName("");
+        setAge("");
+        setPhone("");
+        setDiagnosis("");
+      } else {
+        throw new Error("Failed to add patient");
       }
-    } catch (e: any) {
-      console.log("Error:", e);
+    } catch (error) {
+      console.error("Error adding patient:", error);
+      toast.error("Failed to add patient");
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  // Loader component
+  const Loader = () => {
+    return (
+      <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="animate-spin rounded-full h-20 w-20 border-b-2 border-primary"></div>
+      </div>
+    );
+  };
+
   // Function to handle delete patient
   const handleDeleteClick = (patientId: string) => {
     setSelectedPatientId(patientId);
@@ -196,6 +274,7 @@ export default function Page() {
           setPatients((prevPatients) =>
             prevPatients.filter((patient) => patient._id !== selectedPatientId)
           );
+          toast.success("Patient deleted successfully");
           closeDeleteModal();
         } else {
           console.error("Failed to delete patient");
@@ -235,6 +314,8 @@ export default function Page() {
       <Toaster richColors position="top-right" />
       <OrgLayout>
         <main className="bg-white w-full ">
+          {isLoading && <Loader />}
+
           {/* Section to add Patient */}
           <section className="m-auto my-4 w-full gap-y-4 flex flex-col lg:flex-row justify-start lg:justify-evenly items-start lg:items-center">
             <h2 className="font-bold text-2xl text-black">All Patients</h2>
