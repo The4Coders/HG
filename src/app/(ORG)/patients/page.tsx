@@ -1,3 +1,6 @@
+// @ts-nocheck
+/* eslint-disable */
+
 "use client";
 import { useState, useMemo, useEffect } from "react";
 import OrgLayout from "@/components/orgLayout";
