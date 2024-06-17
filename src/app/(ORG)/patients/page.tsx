@@ -1,5 +1,3 @@
-// @ts-nocheck
-/* eslint-disable */
 "use client";
 import { useState, useMemo, useEffect } from "react";
 import OrgLayout from "@/components/orgLayout";
@@ -68,6 +66,10 @@ export default function Page() {
   const [age, setAge] = useState();
   const [phone, setPhone] = useState("");
   const [diagnosis, setDiagnosis] = useState("");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedPatientId, setSelectedPatientId] = useState<string | null>(
+    null
+  );
   useEffect(() => {
     const fetchPatients = async () => {
       try {
@@ -138,6 +140,7 @@ export default function Page() {
   const handleDiagnosis = (e: any) => {
     setDiagnosis(e.target.value);
   };
+  // Function to add a new patient
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log("Button clicked");
@@ -167,15 +170,72 @@ export default function Page() {
       console.log("Error:", e);
     }
   };
+  // Function to handle delete patient
+  const handleDeleteClick = (patientId: string) => {
+    setSelectedPatientId(patientId);
+    setIsDeleteModalOpen(true);
+  };
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setSelectedPatientId(null);
+  };
+  // Function to handle the delete confirmation
+  const handleDeleteConfirm = async () => {
+    if (selectedPatientId) {
+      try {
+        const res = await fetch(
+          `http://localhost:3000/api/patients?id=${selectedPatientId}`,
+          {
+            method: "DELETE",
+          }
+        );
+        if (res.ok) {
+          setPatients((prevPatients) =>
+            prevPatients.filter((patient) => patient._id !== selectedPatientId)
+          );
+          closeDeleteModal();
+        } else {
+          console.error("Failed to delete patient");
+        }
+      } catch (error) {
+        console.error("Error deleting patient:", error);
+      }
+    }
+  };
+  // Confirmation modal component
+  const DeleteConfirmationModal = ({ onConfirm, onCancel }: any) => (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">Confirm Delete</h2>
+        </div>
+        <p>Are you sure you want to delete this patient?</p>
+        <div className="flex justify-end mt-4">
+          <button
+            className="bg-red-500 text-white p-2 rounded-lg mr-2"
+            onClick={onConfirm}
+          >
+            Yes
+          </button>
+          <button
+            className="bg-gray-500 text-white p-2 rounded-lg"
+            onClick={onCancel}
+          >
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  );
   return (
     <main>
       <Toaster richColors position="top-right" />
       <OrgLayout>
-        <main className="bg-white w-full">
+        <main className="bg-white w-full ">
           {/* Section to add Patient */}
-          <section className="m-auto my-4 w-full flex justify-evenly items-center">
+          <section className="m-auto my-4 w-full gap-y-4 flex flex-col lg:flex-row justify-start lg:justify-evenly items-start lg:items-center">
             <h2 className="font-bold text-2xl text-black">All Patients</h2>
-            <form className="w-[60%]">
+            <form className="w-[90%] lg:w-[60%]">
               <label
                 htmlFor="default-search"
                 className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -220,33 +280,36 @@ export default function Page() {
               Add a Patient
             </button>
           </section>
-
           {/* Table section */}
-          <section className="m-auto my-4 w-full">
+          <section className="m-auto my-4 w-full pb-10">
             <table {...getTableProps()} className="min-w-full leading-normal">
               <thead>
-                {headerGroups.map((headerGroup: any) => (
-                  <tr
-                    {...headerGroup.getHeaderGroupProps()}
-                    key={headerGroup.id}
-                  >
-                    {headerGroup.headers.map((column: any) => (
-                      <th
-                        {...column.getHeaderProps()}
-                        key={column.id}
-                        className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >
-                        {column.render("Header")}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
+                {headerGroups.map(
+                  (headerGroup: any, headerGroupIndex: number) => (
+                    <tr
+                      {...headerGroup.getHeaderGroupProps()}
+                      key={`headerGroup-${headerGroupIndex}`}
+                    >
+                      {headerGroup.headers.map(
+                        (column: any, columnIndex: number) => (
+                          <th
+                            {...column.getHeaderProps()}
+                            key={`column-${columnIndex}`}
+                            className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                          >
+                            {column.render("Header")}
+                          </th>
+                        )
+                      )}
+                    </tr>
+                  )
+                )}
               </thead>
               <tbody {...getTableBodyProps()}>
                 {page.map((row: any) => {
                   prepareRow(row);
                   return (
-                    <tr {...row.getRowProps()} key={row._id}>
+                    <tr {...row.getRowProps()} key={row.original._id}>
                       {row.cells.map((cell: any) => (
                         <td
                           {...cell.getCellProps()}
@@ -293,12 +356,19 @@ export default function Page() {
                                     <li>
                                       <button
                                         onClick={() =>
-                                          handleActionClick(row.original.id)
+                                          handleDeleteClick(row.original._id)
                                         }
                                         className="flex justify-start w-full px-4 py-2 hover:bg-gray-100"
                                       >
                                         Delete
                                       </button>
+
+                                      {isDeleteModalOpen && (
+                                        <DeleteConfirmationModal
+                                          onConfirm={handleDeleteConfirm}
+                                          onCancel={closeDeleteModal}
+                                        />
+                                      )}
                                     </li>
                                   </ul>
                                 </div>
@@ -388,7 +458,7 @@ export default function Page() {
             </nav>
           </section>
           {/*  */}
-          {/* Modal */}
+          {/* Modal to add new patient */}
           {isModalOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
