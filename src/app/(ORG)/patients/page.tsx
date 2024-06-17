@@ -169,7 +169,7 @@ export default function Page() {
   };
   return (
     <main>
-      <Toaster position="top-right" />
+      <Toaster richColors position="top-right" />
       <OrgLayout>
         <main className="bg-white w-full">
           {/* Section to add Patient */}
