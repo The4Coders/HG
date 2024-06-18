@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +23,10 @@ const Navbar = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   return (
     <nav
@@ -43,26 +48,97 @@ const Navbar = () => {
               <span className="text-lg text-black">Health Guardian</span>
             </div>
           </div>
-          <div className="flex space-x-10">
+          <div className="hidden md:flex space-x-10">
             <Link href="#solutions" legacyBehavior>
-              <a className="text-black text-[20px] relative">Solutions</a>
+              <a className="line text-black text-[20px] relative">Solutions</a>
             </Link>
             <Link href="/" legacyBehavior>
-              <a className="text-black text-[20px] relative">About Us</a>
+              <a className="line text-black text-[20px] relative">About Us</a>
             </Link>
             <Link href="/" legacyBehavior>
-              <a className="text-black text-[20px] relative">How It Works</a>
+              <a className="line text-black text-[20px] relative">
+                How It Works
+              </a>
             </Link>
+          </div>
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={toggleMenu}
+              className="text-black focus:outline-none"
+            >
+              {menuOpen ? (
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              ) : (
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  ></path>
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       </div>
-
+      <div
+        className={`md:hidden absolute top-16 right-0 w-full bg-[#E6E4E5] shadow-lg z-[999] transition-transform transform origin-top ${
+          menuOpen ? 'animate-menu-slide-in' : 'animate-menu-slide-out'
+        }`}
+      >
+        <div className="flex flex-col items-end px-4 pt-2 pb-3 space-y-1 sm:px-3">
+          <Link href="#solutions" legacyBehavior>
+            <a
+              className="block text-black text-[20px] relative w-[90px] pt-2 line"
+              onClick={toggleMenu}
+            >
+              Solutions
+            </a>
+          </Link>
+          <Link href="/" legacyBehavior>
+            <a
+              className="block text-black text-[20px] relative w-[90px] pt-2 line"
+              onClick={toggleMenu}
+            >
+              About Us
+            </a>
+          </Link>
+          <Link href="/" legacyBehavior>
+            <a
+              className="block text-black text-[20px] relative w-[130px] pt-2 line"
+              onClick={toggleMenu}
+            >
+              How It Works
+            </a>
+          </Link>
+        </div>
+      </div>
       <style jsx>{`
-        .text-black {
+        .line {
           transition: transform 0.3s ease;
         }
 
-        .text-black::after {
+        .line::after {
           content: '';
           position: absolute;
           bottom: -2px;
@@ -75,12 +151,38 @@ const Navbar = () => {
           transition: transform 0.3s ease;
         }
 
-        .text-black:hover::after {
+        .line:hover::after {
           transform: scaleX(1);
         }
 
-        .text-black:hover {
+        .line:hover {
           transform: scale(1.1);
+        }
+
+        @keyframes menu-slide-in {
+          from {
+            transform: scaleY(0);
+          }
+          to {
+            transform: scaleY(1);
+          }
+        }
+
+        @keyframes menu-slide-out {
+          from {
+            transform: scaleY(1);
+          }
+          to {
+            transform: scaleY(0);
+          }
+        }
+
+        .animate-menu-slide-in {
+          animation: menu-slide-in 0.3s ease-out forwards;
+        }
+
+        .animate-menu-slide-out {
+          animation: menu-slide-out 0.3s ease-in forwards;
         }
       `}</style>
     </nav>
