@@ -90,7 +90,10 @@ export default function Page() {
             </div>
           </section>
           {/* other section */}
-          <h2>WIP</h2>
+          <section className="border-2 border-primary h-[400px] flex flex-col gap-y-3 md:flex-row justify-start items-center gap-x-3 pe-3 my-3">
+           <div></div>
+           <div></div>
+            </section>
         </main>
       </OrgLayout>
     </main>
