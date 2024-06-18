@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -25,35 +26,33 @@ const AnimationSection: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const sr = ScrollReveal();
+    const sr = ScrollReveal();
 
-      sr.reveal(".reveal", {
-        distance: "50px",
-        duration: 1500,
-        easing: "ease-in-out",
-        origin: "bottom",
-        reset: true,
-      });
-    }
+    sr.reveal(".refeal", {
+      distance: "50px",
+      duration: 1500,
+      easing: "ease-in-out",
+      origin: "bottom",
+      reset: true,
+    });
   }, []);
 
   const icons = [
-    <FaStethoscope key="FaStethoscope" />,
+    <FaStethoscope />,
     null,
-    <FaHeartbeat key="FaHeartbeat" />,
+    <FaHeartbeat />,
     null,
-    <FaPills key="FaPills" />,
+    <FaPills />,
     null,
-    <FaSyringe key="FaSyringe" />,
+    <FaSyringe />,
     null,
-    <FaUserMd key="FaUserMd" />,
+    <FaUserMd />,
     null,
-    <FaAmbulance key="FaAmbulance" />,
+    <FaAmbulance />,
     null,
-    <FaBriefcaseMedical key="FaBriefcaseMedical" />,
+    <FaBriefcaseMedical />,
     null,
-    <FaXRay key="FaXRay" />,
+    <FaXRay />,
   ];
 
   return (
@@ -74,7 +73,7 @@ const AnimationSection: React.FC = () => {
             Health
           </span>
         ) : (
-          <span className="animation-delay-0 animate-hop reveal">H</span>
+          <span className="animation-delay-0 animate-hop refeal">H</span>
         )}
       </div>
       <div className="text-[50px] md:text-[100px] text-[#E6E4E5] font-bold relative ml-4">
@@ -83,7 +82,7 @@ const AnimationSection: React.FC = () => {
             Guardian
           </span>
         ) : (
-          <span className="animation-delay-1 animate-hop reveal">G</span>
+          <span className="animation-delay-1 animate-hop refeal">G</span>
         )}
       </div>
 
