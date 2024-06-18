@@ -7,6 +7,7 @@ import Image from "next/image";
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,76 +62,6 @@ const Navbar = () => {
               </a>
             </Link>
           </div>
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={toggleMenu}
-              className="text-black focus:outline-none"
-            >
-              {menuOpen ? (
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  ></path>
-                </svg>
-              ) : (
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  ></path>
-                </svg>
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        className={`md:hidden absolute top-16 right-0 w-full bg-[#E6E4E5] shadow-lg z-[999] transition-transform transform origin-top ${
-          menuOpen ? "animate-menu-slide-in" : "animate-menu-slide-out"
-        }`}
-      >
-        <div className="flex flex-col items-end px-4 pt-2 pb-3 space-y-1 sm:px-3">
-          <Link href="#solutions" legacyBehavior>
-            <a
-              className="block text-black text-[20px] relative w-[90px] pt-2 line"
-              onClick={toggleMenu}
-            >
-              Solutions
-            </a>
-          </Link>
-          <Link href="/" legacyBehavior>
-            <a
-              className="block text-black text-[20px] relative w-[90px] pt-2 line"
-              onClick={toggleMenu}
-            >
-              About Us
-            </a>
-          </Link>
-          <Link href="/" legacyBehavior>
-            <a
-              className="block text-black text-[20px] relative w-[130px] pt-2 line"
-              onClick={toggleMenu}
-            >
-              How It Works
-            </a>
-          </Link>
         </div>
       </div>
       <style jsx>{`
@@ -138,7 +69,7 @@ const Navbar = () => {
           transition: transform 0.3s ease;
         }
 
-        .line::after {
+        .text-black::after {
           content: "";
           position: absolute;
           bottom: -2px;

@@ -82,38 +82,13 @@ const HeroSection: React.FC = () => {
     }, 0);
   };
 
-  useEffect(() => {
-    const sr = ScrollReveal();
-
-    sr.reveal(".reveal", {
-      distance: "250px",
-      duration: 1800,
-      easing: "ease-out",
-      origin: "top",
-      reset: true,
-    });
-
-    sr.reveal(".down", {
-      distance: "200px",
-      duration: 1000,
-      easing: "ease-out",
-      origin: "bottom",
-      reset: true,
-      interval: 100,
-    });
-  }, []);
-
   return (
-    <section className="bg-[#E6E4E5] py-12 w-full">
-      <div className="container mx-auto px-4 md:px-16 flex flex-col md:flex-row items-center h-full md:h-[100vh] ">
-        <div className="first md:w-1/2 mb-8 md:mb-0 h-[600px] pt-20 reveal">
-          <div className="text-4xl md:text-6xl font-bold text-gray-900 mb-4 pl-4 md:pl-10 reveal">
-            <h2 className="mb-4 text-gray-500 text-[50px] md:text-[70px]">
-              Where
-            </h2>
-            <h2 className="mb-4 text-gray-500 text-[50px] md:text-[70px]">
-              Tech Meets
-            </h2>
+    <section className="bg-[#E6E4E5] py-12">
+      <div className="container mx-auto px-16 flex flex-col md:flex-row items-center h-[100vh]">
+        <div className="first md:w-1/2 mb-8 md:mb-0 h-[600px] pt-20 slide-in-left">
+          <div className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 pl-10">
+            <h2 className="mb-4 text-gray-500 text-[70px]">Where</h2>
+            <h2 className="mb-4 text-gray-500 text-[70px]">Tech Meets</h2>
             <h2
               id="animatedText"
               className="text-[#063b3f] slide-in font-extrabold text-[70px] md:text-[90px]"

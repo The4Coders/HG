@@ -100,10 +100,7 @@ const SignIn: React.FC = () => {
                 Forgot Your Password?
               </p>
               <div className="text-center">
-                <button
-                  className="bg-[#063b3f] text-white py-3 px-14 rounded-[8px] uppercase w-[160px] md:w-[200px] moving-wave-button"
-                  type="submit"
-                >
+                <button className="bg-[#063b3f] text-white py-3 px-14 rounded-[8px] uppercase w-[200px] moving-wave-button">
                   Login
                 </button>
               </div>
@@ -112,9 +109,7 @@ const SignIn: React.FC = () => {
 
           <div className="bg-[#063b3f] flex-1 rounded-b-[20px] md:rounded-bl-none md:rounded-r-[20px] md:rounded-tl-[160px] md:rounded-br-[160px] flex p-8 items-center justify-center">
             <div className="text-white text-center p-4 flex flex-col items-center">
-              <h2 className="text-[32px] md:text-[42px] font-medium mb-6 md:mb-10">
-                Hello!
-              </h2>
+              <h2 className="text-[42px] font-medium mb-10">Hello!</h2>
               <p>Register with your personal details</p>
               <button
                 onClick={handleSignInClick}
