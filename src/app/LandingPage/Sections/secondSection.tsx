@@ -1,6 +1,6 @@
-/* eslint-disable react/no-unescaped-entities */
-'use client';
+"use client"
 
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -42,19 +42,19 @@ const SecondSection: React.FC = () => {
 
   return (
     <div className="bg-[#E6E4E5] pt-24 pb-28" id="solutions">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-x-24">
-        <div className="w-[600px] left">
-          <h2 className="text-5xl font-bold text-gray-500">
+      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-x-8 md:gap-x-24">
+        <div className="w-full md:w-[600px] left">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-500">
             Top-Quality{' '}
-            <span className="text-[#063b3f] text-6xl">Virtual Primary</span>{' '}
+            <span className="text-[#063b3f] text-4xl md:text-6xl">Virtual Primary</span>{' '}
             Care Visits
           </h2>
-          <p className="mt-6 text-gray-600 w-[510px] leading-[1.8]">
+          <p className="mt-6 text-gray-600 md:w-[510px] leading-[1.8]">
             Book A Virtual Care Visit, Chat Via Video On Your Smartphone, And
             Pick Up Your Prescription From Your Pharmacy. Our Advanced
             Technology Is Integrated With Most Major Health Insurances.
           </p>
-          <ul className="mt-8 space-y-4 grid grid-cols-2 gap-4">
+          <ul className="mt-8 space-y-4 grid grid-cols-2">
             {[
               'Meet The Doctor You Want',
               'Get The Care You Want',
@@ -80,12 +80,12 @@ const SecondSection: React.FC = () => {
                       </svg>
                     </i>
                   </div>
-                  <span className="text-black text-[15px] w-[121.5px] leading-4">
+                  <span className="text-black text-sm md:text-lg w-[121.5px] leading-4">
                     {text}
                   </span>
                 </div>
                 {expandedItem === index && (
-                  <div className="dummy-text mt-2 bg-[#E6E4E5] p-2 rounded-lg shadow-md text-gray-600 text-sm w-[250px]">
+                  <div className="dummy-text mt-2 bg-[#E6E4E5] p-2 rounded-lg shadow-md text-gray-600 text-sm md:text-base w-[250px]">
                     <p>{dummyTexts[index]}</p>
                   </div>
                 )}
@@ -93,20 +93,22 @@ const SecondSection: React.FC = () => {
             ))}
           </ul>
           <Link href="/tele">
-            <button className="bg-[#063b3f] text-white text-[20px] mt-12 py-2 px-6 rounded-[50px] hover:bg-[#045357] transition duration-300 h-[60px] w-56 hover:transform hover:translate-x-4 hover:shadow-lg moving-wave-button">
+            <button
+              className="bg-[#063b3f] text-white text-sm md:text-[20px] mt-8 md:mt-12 py-2 px-6 rounded-[50px] hover:bg-[#045357] transition duration-300 h-[60px] md:w-56 hover:transform hover:translate-x-4 hover:shadow-lg moving-wave-button"
+            >
               See Doctors
             </button>
           </Link>
         </div>
 
-        <div className="mb-8 md:mb-0 w-[600px] right">
+        <div className="mb-8 md:mb-0 w-full md:w-[600px] right group">
           <div className="relative">
             <Image
               src="/images/consultant.jpg"
               alt="Doctor"
               width={700}
               height={700}
-              className="w-full h-[600px] relative z-20"
+              className="w-full h-auto md:h-[600px] relative z-20"
               style={{
                 borderTopLeftRadius: '250px',
                 borderBottomRightRadius: '200px',
@@ -114,7 +116,7 @@ const SecondSection: React.FC = () => {
                 borderTopRightRadius: '200px',
               }}
             />
-            <div className="absolute top-8 -left-10 bg-white p-4 rounded-lg shadow-md opacity-85 z-10">
+            <div className="absolute top-8 left-32 md:left-12 bg-white p-4 rounded-lg shadow-md opacity-0 z-10 transition-all duration-500 group-hover:left-[-40px] group-hover:opacity-65">
               <div className="flex items-center">
                 <div>
                   <svg
@@ -125,26 +127,27 @@ const SecondSection: React.FC = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
                       d="M12 2C6.48 2 2 5.58 2 10C2 12.36 3.19 14.46 5 15.74V20.82L9.14 18.26C9.69 18.42 10.33 18.5 11 18.5C16.52 18.5 21 14.92 21 10.5C21 6.08 16.52 2 12 2ZM6 11C5.45 11 5 10.55 5 10C5 9.45 5.45 9 6 9C6.55 9 7 9.45 7 10C7 10.55 6.55 11 6 11ZM8.14 14.26C8.68 14.4 9.33 14.5 10 14.5C13.31 14.5 16 12.54 16 10.5C16 8.46 13.31 6.5 10 6.5C6.69 6.5 4 8.46 4 10.5C4 12.36 5.19 14.26 8.14 14.26ZM11 11C10.45 11 10 10.55 10 10C10 9.45 10.45 9 11 9C11.55 9 12 9.45 12 10C12 10.55 11.55 11 11 11ZM14 11C13.45 11 13 10.55 13 10C13 9.45 13.45 9 14 9C14.55 9 15 9.45 15 10C15 10.55 14.55 11 14 11Z"
                       fill="#045357"
                     />
                   </svg>
                 </div>
                 <div>
-                  <p className="text-black text-lg font-semibold">
+                  <p className="text-black text-base md:text-lg font-semibold">
                     Member Asked
                   </p>
                   <p className="text-xs">Added Thursday at 1:00 PM</p>
                 </div>
               </div>
               <div className="mt-3">
-                <div className="w-[300px] h-[20px] bg-gray-200 rounded-[5px]"></div>
-                <div className="w-[250px] h-[20px] bg-gray-200 rounded-[5px] mt-2"></div>
+                <div className="w-[300px] md:w-[400px] h-[20px] bg-gray-200 rounded-[5px]"></div>
+                <div className="w-[250px] md:w-[350px] h-[20px] bg-gray-200 rounded-[5px] mt-2"></div>
               </div>
             </div>
-            <div className="absolute bottom-[200px] -left-8 bg-white p-2 rounded-lg shadow-md flex opacity-70 z-30">
+
+            <div className="absolute bottom-[200px] md:-left-8 bg-white p-2 rounded-lg shadow-md flex opacity-0 z-30 transition-all duration-500 group-hover:opacity-70">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24px"
@@ -159,11 +162,11 @@ const SecondSection: React.FC = () => {
                 Feel Support Always
               </p>
             </div>
-            <div className="absolute top-52 right-[173px] bg-none p-4 rounded-lg z-30">
-              <p className="text-xs mb-1">Excellent</p>
-              <p className="text-3xl font-semibold">98%</p>
+            <div className="md:right-[0] absolute top-[212px] bg-none p-4 rounded-lg z-30 opacity-0 transition-all duration-700 group-hover:right-[173px] group-hover:opacity-100">
+              <p className="text-xs md:text-sm mb-1">Excellent</p>
+              <p className="text-xl md:text-3xl font-semibold">98%</p>
             </div>
-            <div className="absolute -bottom-10 right-2 bg-white p-4 rounded-lg shadow-md opacity-85 z-30">
+            <div className="absolute -bottom-28 md:right-2 bg-white p-4 rounded-lg shadow-md opacity-0 z-30 transition-all duration-700 group-hover:bottom-[-40px] group-hover:opacity-85">
               <div className="flex items-center">
                 <div>
                   <svg
@@ -178,16 +181,16 @@ const SecondSection: React.FC = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-black text-lg font-semibold">
+                  <p className="text-black text-base md:text-lg font-semibold">
                     Doctor's Note
                   </p>
                   <p className="text-xs">Added Thursday at 1:00 PM</p>
                 </div>
               </div>
               <div className="mt-3">
-                <div className="w-[300px] h-[20px] bg-gray-200 rounded-[5px]"></div>
-                <div className="w-[250px] h-[20px] bg-gray-200 rounded-[5px] mt-2"></div>
-                <div className="w-[200px] h-[20px] bg-gray-200 rounded-[5px] mt-2"></div>
+                <div className="w-[300px] md:w-[400px] h-[20px] bg-gray-200 rounded-[5px]"></div>
+                <div className="w-[250px] md:w-[350px] h-[20px] bg-gray-200 rounded-[5px] mt-2"></div>
+                <div className="w-[200px] md:w-[300px] h-[20px] bg-gray-200 rounded-[5px] mt-2"></div>
               </div>
             </div>
           </div>

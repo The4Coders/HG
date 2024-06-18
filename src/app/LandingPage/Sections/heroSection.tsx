@@ -87,43 +87,44 @@ const HeroSection: React.FC = () => {
 
     sr.reveal('.reveal', {
       distance: '250px',
-      duration: 1500,
+      duration: 1800,
       easing: 'ease-out',
       origin: 'top',
       reset: true,
     });
 
-    sr.reveal('.bottom', {
+    sr.reveal('.down', {
       distance: '200px',
       duration: 1000,
       easing: 'ease-out',
       origin: 'bottom',
       reset: true,
+      interval: 100,
     });
   }, []);
 
   return (
-    <section className="bg-[#E6E4E5] py-12">
-      <div className="container mx-auto px-16 flex flex-col md:flex-row items-center h-[100vh]">
-        <div className="first md:w-1/2 mb-8 md:mb-0 h-[600px] pt-20">
-          <div className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 pl-10 reveal">
-            <h2 className="mb-4 text-gray-500 text-[70px]">Where</h2>
-            <h2 className="mb-4 text-gray-500 text-[70px]">Tech Meets</h2>
+    <section className="bg-[#E6E4E5] py-12 w-full">
+      <div className="container mx-auto px-4 md:px-16 flex flex-col md:flex-row items-center h-full md:h-[100vh] ">
+        <div className="first md:w-1/2 mb-8 md:mb-0 h-[600px] pt-20 reveal">
+          <div className="text-4xl md:text-6xl font-bold text-gray-900 mb-4 pl-4 md:pl-10 reveal">
+            <h2 className="mb-4 text-gray-500 text-[50px] md:text-[70px]">Where</h2>
+            <h2 className="mb-4 text-gray-500 text-[50px] md:text-[70px]">Tech Meets</h2>
             <h2
               id="animatedText"
-              className="text-[#063b3f] slide-in font-extrabold text-[90px]"
+              className="text-[#063b3f] slide-in font-extrabold text-[70px] md:text-[90px]"
               onAnimationEnd={handleAnimationEnd}
             >
               {animatedText} {}
             </h2>
           </div>
-          <p className="text-gray-500 w-[550px] pl-10 mt-10 leading-[1.8] reveal">
+          <p className="text-gray-500 w-full md:w-[550px] pl-4 md:pl-10 mt-10 leading-[1.8] reveal">
             Health Guardian is now open, safe and available online, providing
             clinical excellence with the ease of virtual care. Schedule a
             virtual visit with your doctor at any time of day or night.
           </p>
           <Link href="/signup">
-            <button className="bg-[#063b3f] text-white text-[20px] ml-10 mt-12 py-2 px-6 rounded-[50px] hover:bg-[#045357] transition duration-300 h-[60px] w-56 hover:transform hover:translate-x-4 hover:shadow-lg moving-wave-button reveal">
+            <button className="bg-[#063b3f] text-white text-[16px] md:text-[20px] ml-4 md:ml-10 mt-12 py-2 px-6 rounded-[50px] hover:bg-[#045357] transition duration-300 h-[50px] md:h-[60px] w-48 md:w-56 hover:transform hover:translate-x-4 hover:shadow-lg moving-wave-button">
               Check it Out
             </button>
           </Link>
@@ -134,7 +135,7 @@ const HeroSection: React.FC = () => {
             alt="Nurse"
             width={500}
             height={500}
-            className="w-full h-[600px] my-6 ml-5 p-10"
+            className="w-full h-auto max-w-[500px] my-6 mx-auto p-4 md:p-10"
             style={{
               borderTopLeftRadius: '200px',
               borderBottomRightRadius: '200px',
@@ -161,20 +162,18 @@ const HeroSection: React.FC = () => {
       {/* Teeth, Brain, Eye */}
 
       <div className="bg-[#045357] py-12">
-        <div className="container mx-auto p-4 bg-white rounded-[30px] bg-opacity-30 backdrop-blur-lg border border-[#E6E4E5] w-[1150px]">
+        <div className="container mx-auto p-4 md:p-4 bg-white rounded-[30px] bg-opacity-30 backdrop-blur-lg border border-[#E6E4E5] w-full md:w-[1150px]">
           <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8">
             {/* First content */}
-            <div className="hop flex flex-col items-start p-4 rounded-lg bottom">
+            <div className="flex flex-col items-start p-4 rounded-lg down">
               <Image
                 src="/images/system/teeth.png"
                 alt="Teeth"
                 width={60}
                 height={60}
-                className="mb-5 rounded-[50px] "
+                className="mb-5 rounded-[50px]"
               />
-              <h3 className="text-xl text-gray-800 font-bold mb-3">
-                Dentistry
-              </h3>
+              <h3 className="text-xl text-gray-800 font-bold mb-3">Dentistry</h3>
               <p className="text-[#E6E4E5] text-sm">
                 We are dedicated to providing award-winning dental care and
                 ensuring that your time with us is unlike any other dental
@@ -183,7 +182,7 @@ const HeroSection: React.FC = () => {
             </div>
 
             {/* Second content */}
-            <div className="hop flex flex-col items-start p-4 rounded-lg bottom">
+            <div className="flex flex-col items-start p-4 rounded-lg down">
               <Image
                 src="/images/system/brain.png"
                 alt="Brain"
@@ -191,9 +190,7 @@ const HeroSection: React.FC = () => {
                 height={60}
                 className="mb-5 rounded-[50px]"
               />
-              <h3 className="text-xl text-gray-800 font-bold mb-3">
-                Neurology
-              </h3>
+              <h3 className="text-xl text-gray-800 font-bold mb-3">Neurology</h3>
               <p className="text-[#E6E4E5] text-sm">
                 A physical exam and a neurological evaluation are likely to be
                 performed during your first appointment with a neurologist.
@@ -201,7 +198,7 @@ const HeroSection: React.FC = () => {
             </div>
 
             {/* Third content */}
-            <div className="hop flex flex-col items-start p-4 rounded-lg bottom">
+            <div className="flex flex-col items-start p-4 rounded-lg down">
               <Image
                 src="/images/system/eye.png"
                 alt="Eye"
@@ -212,7 +209,7 @@ const HeroSection: React.FC = () => {
               <h3 className="text-xl text-gray-800 font-bold mb-3">Eye Care</h3>
               <p className="text-[#E6E4E5] text-sm">
                 Our trained specialist can diagnose and treat a wide range of
-                eye disorders and aliments using the most up-to-date technology.
+                eye disorders and ailments using the most up-to-date technology.
               </p>
             </div>
           </div>
