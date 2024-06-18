@@ -1,20 +1,22 @@
 // @ts-nocheck
 /* eslint-disable */
-"use client";
 
-import { useState, useMemo } from "react";
+"use client";
+import { useState, useMemo, useEffect } from "react";
 import OrgLayout from "@/components/orgLayout";
-import { CirclePlus, EllipsisVertical } from "lucide-react";
+import { CirclePlus, X } from "lucide-react";
 import {
   useTable,
   usePagination,
   useGlobalFilter,
   Column,
-  Row,
   TableInstance,
 } from "react-table";
-
+import Link from "next/link";
+import { Toaster, toast } from "sonner";
 interface Patient {
+  generatedId: number;
+  _id: string;
   name: string;
   id: string;
   age: number;
@@ -22,150 +24,12 @@ interface Patient {
   diagnosis: string;
   admissionDate: string;
   status: string;
-  actions: any;
+  actions?: any;
 }
 
-const mockData: Patient[] = [
-  {
-    name: "John Doe",
-    id: "001",
-    age: 25,
-    phone: "1234567890",
-    diagnosis: "Flu",
-    admissionDate: "2023-01-01",
-    status: "Admitted",
-  },
-  {
-    name: "Jane Smith",
-    id: "002",
-    age: 30,
-    phone: "1234567891",
-    diagnosis: "Cold",
-    admissionDate: "2023-02-01",
-    status: "Discharged",
-  },
-  {
-    name: "Bob Johnson",
-    id: "003",
-    age: 45,
-    phone: "1234567892",
-    diagnosis: "Asthma",
-    admissionDate: "2023-03-01",
-    status: "Admitted",
-  },
-  {
-    name: "Alice Brown",
-    id: "004",
-    age: 35,
-    phone: "1234567893",
-    diagnosis: "Diabetes",
-    admissionDate: "2023-04-01",
-    status: "Admitted",
-  },
-  {
-    name: "Charlie Davis",
-    id: "005",
-    age: 28,
-    phone: "1234567894",
-    diagnosis: "Hypertension",
-    admissionDate: "2023-05-01",
-    status: "Admitted",
-  },
-  {
-    name: "Eve Miller",
-    id: "006",
-    age: 22,
-    phone: "1234567895",
-    diagnosis: "Migraine",
-    admissionDate: "2023-06-01",
-    status: "Discharged",
-  },
-  {
-    name: "Frank Wilson",
-    id: "007",
-    age: 40,
-    phone: "1234567896",
-    diagnosis: "Cancer",
-    admissionDate: "2023-07-01",
-    status: "Admitted",
-  },
-  {
-    name: "Grace Lee",
-    id: "008",
-    age: 55,
-    phone: "1234567897",
-    diagnosis: "Arthritis",
-    admissionDate: "2023-08-01",
-    status: "Admitted",
-  },
-  {
-    name: "Henry Moore",
-    id: "009",
-    age: 32,
-    phone: "1234567898",
-    diagnosis: "Back Pain",
-    admissionDate: "2023-09-01",
-    status: "Admitted",
-  },
-  {
-    name: "Ivy Clark",
-    id: "010",
-    age: 50,
-    phone: "1234567899",
-    diagnosis: "Heart Disease",
-    admissionDate: "2023-10-01",
-    status: "Admitted",
-  },
-  {
-    name: "Jack White",
-    id: "011",
-    age: 27,
-    phone: "1234567800",
-    diagnosis: "Allergies",
-    admissionDate: "2023-11-01",
-    status: "Discharged",
-  },
-  {
-    name: "Kelly Green",
-    id: "012",
-    age: 38,
-    phone: "1234567801",
-    diagnosis: "Kidney Stones",
-    admissionDate: "2023-12-01",
-    status: "Admitted",
-  },
-  {
-    name: "Liam Harris",
-    id: "013",
-    age: 48,
-    phone: "1234567802",
-    diagnosis: "Stroke",
-    admissionDate: "2024-01-01",
-    status: "Admitted",
-  },
-  {
-    name: "Mia Martinez",
-    id: "014",
-    age: 29,
-    phone: "1234567803",
-    diagnosis: "Pneumonia",
-    admissionDate: "2024-02-01",
-    status: "Admitted",
-  },
-  {
-    name: "Noah Thompson",
-    id: "015",
-    age: 31,
-    phone: "1234567804",
-    diagnosis: "Ulcer",
-    admissionDate: "2024-03-01",
-    status: "Admitted",
-  },
-];
-
 const columns: Column<Patient>[] = [
+  { Header: "ID", accessor: "generatedId" },
   { Header: "Name", accessor: "name" },
-  { Header: "ID", accessor: "id" },
   { Header: "Age", accessor: "age" },
   { Header: "Phone Number", accessor: "phone" },
   { Header: "Diagnosis", accessor: "diagnosis" },
@@ -174,10 +38,71 @@ const columns: Column<Patient>[] = [
   { Header: "", accessor: "actions" },
 ];
 
+const getPatient = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/api/patients", {
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      throw new Error("Failed to fetch Patients");
+    }
+    const patientData = await res.json();
+    const patientsWithGeneratedId = patientData.patients.map(
+      (patient: any, index: number) => ({
+        generatedId: index + 1,
+        ...patient,
+        isOpen: false,
+      })
+    );
+    return patientsWithGeneratedId;
+  } catch (e: any) {
+    console.log("Error loading patients:", e);
+    return [];
+  }
+};
+
 export default function Page() {
+  const [patients, setPatients] = useState<Patient[]>([]);
   const [searchInput, setSearchInput] = useState("");
-  const [dropdownOpen, setDropdownOpen] = useState<Record<string, boolean>>({});
-  const data = useMemo(() => mockData, []);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [age, setAge] = useState();
+  const [phone, setPhone] = useState("");
+  const [diagnosis, setDiagnosis] = useState("");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedPatientId, setSelectedPatientId] = useState<string | null>(
+    null
+  );
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/api/patients", {
+          cache: "no-store",
+        });
+        if (!res.ok) {
+          throw new Error("Failed to fetch Patients");
+        }
+        const patientData = await res.json(); // Parse JSON data here
+        const patientsWithGeneratedId = patientData.patients.map(
+          (patient: any, index: number) => ({
+            generatedId: index + 1,
+            ...patient,
+            isOpen: false,
+          })
+        );
+        setPatients(patientsWithGeneratedId);
+        setIsLoading(false); // Set loading state to false after fetch completes
+      } catch (e: any) {
+        console.log("Error loading patients:", e);
+        setPatients([]); // Ensure patients state is set to empty array on error
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const data = useMemo(() => patients || [], [patients]);
   const {
     getTableProps,
     getTableBodyProps,
@@ -194,11 +119,14 @@ export default function Page() {
     setPageSize,
     setGlobalFilter,
   }: TableInstance<Patient> = useTable(
-    { columns, data, initialState: { pageIndex: 0, pageSize: 10 } },
+    {
+      columns,
+      data: patients,
+      initialState: { pageIndex: 0, pageSize: 10 },
+    },
     useGlobalFilter,
     usePagination
   );
-
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value || "";
     setGlobalFilter(value);
@@ -206,20 +134,192 @@ export default function Page() {
   };
 
   const toggleDropdown = (id: string) => {
-    setDropdownOpen((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
+    setPatients((prevPatients) =>
+      prevPatients.map((patient) =>
+        patient.generatedId === id
+          ? { ...patient, isOpen: !patient.isOpen }
+          : patient
+      )
+    );
   };
 
+  const handleActionClick = (actualId: string) => {
+    console.log("Actual ID:", actualId);
+  };
+  const handleModalToggle = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+  // modal functions
+  const handleNameChange = (e: any) => {
+    setName(e.target.value);
+  };
+  const handleAgeChange = (e: any) => {
+    setAge(e.target.value);
+  };
+  const handlePhoneChange = (e: any) => {
+    setPhone(e.target.value);
+  };
+  const handleDiagnosis = (e: any) => {
+    setDiagnosis(e.target.value);
+  };
+  // end modal funcitons
+  //
+  // Function to add a new patient
+  // const handleSubmit = async (e: any) => {
+  //   e.preventDefault();
+  //   console.log("Button clicked");
+  //   const payload = {
+  //     name: name,
+  //     age: age,
+  //     phone: phone,
+  //     diagnosis: diagnosis,
+  //   };
+  //   console.log("Payload:", payload);
+  //   try {
+  //     const res = await fetch("http://localhost:3000/api/patients", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ name, age, phone, diagnosis }),
+  //     });
+  //     // if (res.ok) {
+  //     //   console.log("Patient Added!");
+  //     //   setTimeout(() => {
+  //     //     toast.success("Patient added successfully!");
+  //     //     setIsModalOpen(false);
+  //     //   }, 2000);
+  //     // }
+  //     if (res.ok) {
+  //       const newPatient = await res.json(); // Assuming the new patient data is returned from the API
+  //       setPatients((prevPatients) => [...prevPatients, newPatient]);
+  //       toast.success("Patient added successfully!");
+  //       setIsModalOpen(false);
+  //     }
+  //   } catch (e: any) {
+  //     console.log("Error:", e);
+  //   }
+  // };
+  //
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const payload = {
+      name: name,
+      age: parseInt(age),
+      phone: phone,
+      diagnosis: diagnosis,
+    };
+
+    try {
+      setIsLoading(true);
+
+      const res = await fetch("http://localhost:3000/api/patients", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        const newPatient = await res.json();
+        setPatients((prevPatients) => [...prevPatients, newPatient]);
+        toast.success("Patient added successfully, reload!");
+        setIsModalOpen(false);
+        setName("");
+        setAge("");
+        setPhone("");
+        setDiagnosis("");
+      } else {
+        throw new Error("Failed to add patient");
+      }
+    } catch (error) {
+      console.error("Error adding patient:", error);
+      toast.error("Failed to add patient");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Loader component
+  const Loader = () => {
+    return (
+      <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="animate-spin rounded-full h-20 w-20 border-b-2 border-primary"></div>
+      </div>
+    );
+  };
+
+  // Function to handle delete patient
+  const handleDeleteClick = (patientId: string) => {
+    setSelectedPatientId(patientId);
+    setIsDeleteModalOpen(true);
+  };
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setSelectedPatientId(null);
+  };
+  // Function to handle the delete confirmation
+  const handleDeleteConfirm = async () => {
+    if (selectedPatientId) {
+      try {
+        const res = await fetch(
+          `http://localhost:3000/api/patients?id=${selectedPatientId}`,
+          {
+            method: "DELETE",
+          }
+        );
+        if (res.ok) {
+          setPatients((prevPatients) =>
+            prevPatients.filter((patient) => patient._id !== selectedPatientId)
+          );
+          toast.success("Patient deleted successfully");
+          closeDeleteModal();
+        } else {
+          console.error("Failed to delete patient");
+        }
+      } catch (error) {
+        console.error("Error deleting patient:", error);
+      }
+    }
+  };
+  // Confirmation modal component
+  const DeleteConfirmationModal = ({ onConfirm, onCancel }: any) => (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">Confirm Delete</h2>
+        </div>
+        <p>Are you sure you want to delete this patient?</p>
+        <div className="flex justify-end mt-4">
+          <button
+            className="bg-red-500 text-white p-2 rounded-lg mr-2"
+            onClick={onConfirm}
+          >
+            Yes
+          </button>
+          <button
+            className="bg-gray-500 text-white p-2 rounded-lg"
+            onClick={onCancel}
+          >
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  );
   return (
     <main>
+      <Toaster richColors position="top-right" />
       <OrgLayout>
-        <main className="bg-white w-full">
+        <main className="bg-white w-full ">
+          {isLoading && <Loader />}
+
           {/* Section to add Patient */}
-          <section className="m-auto my-4 w-full flex justify-evenly items-center">
+          <section className="m-auto my-4 w-full gap-y-4 flex flex-col lg:flex-row justify-start lg:justify-evenly items-start lg:items-center">
             <h2 className="font-bold text-2xl text-black">All Patients</h2>
-            <form className="w-[60%]">
+            <form className="w-[90%] lg:w-[60%]">
               <label
                 htmlFor="default-search"
                 className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -256,38 +356,44 @@ export default function Page() {
               </div>
             </form>
 
-            <button className="bg-primary text-white p-1.5 px-2 rounded-md flex justify-start items-center gap-x-2">
+            <button
+              onClick={handleModalToggle}
+              className="bg-primary text-white p-1.5 px-2 rounded-md flex justify-start items-center gap-x-2"
+            >
               <CirclePlus color="white" size={15} />
               Add a Patient
             </button>
           </section>
-
           {/* Table section */}
-          <section className="m-auto my-4 w-full">
+          <section className="m-auto my-4 w-full pb-10">
             <table {...getTableProps()} className="min-w-full leading-normal">
               <thead>
-                {headerGroups.map((headerGroup: any) => (
-                  <tr
-                    {...headerGroup.getHeaderGroupProps()}
-                    key={headerGroup.id}
-                  >
-                    {headerGroup.headers.map((column: any) => (
-                      <th
-                        {...column.getHeaderProps()}
-                        key={column.id}
-                        className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                      >
-                        {column.render("Header")}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
+                {headerGroups.map(
+                  (headerGroup: any, headerGroupIndex: number) => (
+                    <tr
+                      {...headerGroup.getHeaderGroupProps()}
+                      key={`headerGroup-${headerGroupIndex}`}
+                    >
+                      {headerGroup.headers.map(
+                        (column: any, columnIndex: number) => (
+                          <th
+                            {...column.getHeaderProps()}
+                            key={`column-${columnIndex}`}
+                            className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                          >
+                            {column.render("Header")}
+                          </th>
+                        )
+                      )}
+                    </tr>
+                  )
+                )}
               </thead>
               <tbody {...getTableBodyProps()}>
                 {page.map((row: any) => {
                   prepareRow(row);
                   return (
-                    <tr {...row.getRowProps()} key={row.id}>
+                    <tr {...row.getRowProps()} key={row.original._id}>
                       {row.cells.map((cell: any) => (
                         <td
                           {...cell.getCellProps()}
@@ -297,37 +403,56 @@ export default function Page() {
                           {cell.column.id === "actions" ? (
                             <div className="relative">
                               <button
-                                onClick={() => toggleDropdown(row.original.id)}
+                                onClick={() =>
+                                  toggleDropdown(row.original.generatedId)
+                                }
                                 className="text-blue-600 hover:text-blue-900"
                               >
                                 Actions
                               </button>
-                              {dropdownOpen[row.original.id] && (
+                              {row.original.isOpen && (
                                 <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
                                   <ul className="py-1 text-gray-700">
                                     <li>
-                                      <a
-                                        href="#"
-                                        className="block px-4 py-2 hover:bg-gray-100"
+                                      <Link
+                                        href={`/patients/${row.original._id}`}
                                       >
-                                        Edit
-                                      </a>
+                                        <button
+                                          onClick={() =>
+                                            handleActionClick(row.original._id)
+                                          }
+                                          className="flex justify-start w-full  px-4 py-2 hover:bg-gray-100"
+                                        >
+                                          Edit
+                                        </button>
+                                      </Link>
                                     </li>
                                     <li>
-                                      <a
-                                        href="#"
-                                        className="block px-4 py-2 hover:bg-gray-100"
+                                      <button
+                                        onClick={() =>
+                                          handleActionClick(row.original._id)
+                                        }
+                                        className="flex justify-start w-full px-4 py-2 hover:bg-gray-100"
                                       >
                                         Preview
-                                      </a>
+                                      </button>
                                     </li>
                                     <li>
-                                      <a
-                                        href="#"
-                                        className="block px-4 py-2 hover:bg-gray-100"
+                                      <button
+                                        onClick={() =>
+                                          handleDeleteClick(row.original._id)
+                                        }
+                                        className="flex justify-start w-full px-4 py-2 hover:bg-gray-100"
                                       >
                                         Delete
-                                      </a>
+                                      </button>
+
+                                      {isDeleteModalOpen && (
+                                        <DeleteConfirmationModal
+                                          onConfirm={handleDeleteConfirm}
+                                          onCancel={closeDeleteModal}
+                                        />
+                                      )}
                                     </li>
                                   </ul>
                                 </div>
@@ -354,7 +479,8 @@ export default function Page() {
                   <button
                     onClick={() => previousPage()}
                     disabled={!canPreviousPage}
-                    className="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    className="flex items-center justify-center px-4 h-10 ms-0
+                  leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <span className="sr-only">Previous</span>
                     <svg
@@ -378,11 +504,11 @@ export default function Page() {
                   <li key={pageNumber}>
                     <button
                       onClick={() => gotoPage(pageNumber)}
-                      className={`flex items-center justify-center px-4 h-10 leading-tight ${
-                        pageIndex === pageNumber
-                          ? "text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700"
-                          : "text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                      } dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+                      className={`flex items-center justify-center px-4 h-10 leading-tight border ${
+                        pageNumber === pageIndex
+                          ? "bg-blue-500 text-white"
+                          : "bg-white text-gray-500"
+                      } border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
                     >
                       {pageNumber + 1}
                     </button>
@@ -392,7 +518,7 @@ export default function Page() {
                   <button
                     onClick={() => nextPage()}
                     disabled={!canNextPage}
-                    className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-s-0 border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <span className="sr-only">Next</span>
                     <svg
@@ -415,6 +541,94 @@ export default function Page() {
               </ul>
             </nav>
           </section>
+          {/*  */}
+          {/* Modal to add new patient */}
+          {isModalOpen && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-2xl font-bold ">Add Patient</h2>
+                  <button
+                    className="text-gray-600 hover:text-gray-800"
+                    onClick={handleModalToggle}
+                  >
+                    <X />
+                  </button>
+                </div>
+                {/* Add Patient form goes here */}
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="patient-name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="patient-name"
+                      className="block w-full p-2 border border-gray-300 rounded-lg"
+                      onChange={handleNameChange}
+                      value={name}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="patient-age"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Age
+                    </label>
+                    <input
+                      type="number"
+                      id="patient-age"
+                      className="block w-full p-2 border border-gray-300 rounded-lg"
+                      onChange={handleAgeChange}
+                      value={age}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="patient-phone"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      id="patient-phone"
+                      className="block w-full p-2 border border-gray-300 rounded-lg"
+                      value={phone}
+                      onChange={handlePhoneChange}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="patient-diagnosis"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Diagnosis
+                    </label>
+                    <input
+                      type="text"
+                      id="patient-diagnosis"
+                      className="block w-full p-2 border border-gray-300 rounded-lg"
+                      value={diagnosis}
+                      onChange={handleDiagnosis}
+                    />
+                  </div>
+                  <div className="flex justify-center items-center w-full">
+                    <button
+                      type="submit"
+                      className="w-full bg-primary text-white p-2 rounded-lg"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
         </main>
       </OrgLayout>
     </main>
