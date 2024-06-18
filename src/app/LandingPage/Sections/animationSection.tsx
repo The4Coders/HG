@@ -39,21 +39,21 @@ const AnimationSection: React.FC = () => {
   }, []);
 
   const icons = [
-    <FaStethoscope />,
+    <FaStethoscope key="FaStethoscope" />,
     null,
-    <FaHeartbeat />,
+    <FaHeartbeat key="FaHeartbeat" />,
     null,
-    <FaPills />,
+    <FaPills key="FaPills" />,
     null,
-    <FaSyringe />,
+    <FaSyringe key="FaSyringe" />,
     null,
-    <FaUserMd />,
+    <FaUserMd key="FaUserMd" />,
     null,
-    <FaAmbulance />,
+    <FaAmbulance key="FaAmbulance" />,
     null,
-    <FaBriefcaseMedical />,
+    <FaBriefcaseMedical key="FaBriefcaseMedical" />,
     null,
-    <FaXRay />,
+    <FaXRay key="FaXRay" />,
   ];
 
   return (
