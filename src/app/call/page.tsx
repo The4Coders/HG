@@ -131,21 +131,19 @@ const Call = () => {
               >
                 Call
               </Button>
-              <Link href="/room">
-                <Button
-                  variant="outlined"
-                  startIcon={<VideocamIcon />}
-                  sx={{
-                    mx: 1,
-                    my: 0.5,
-                    borderColor: "#045357",
-                    color: "#045357",
-                    minWidth: "120px",
-                  }}
-                >
-                  Video
-                </Button>
-              </Link>
+              <Button
+                variant="outlined"
+                startIcon={<VideocamIcon />}
+                sx={{
+                  mx: 1,
+                  my: 0.5,
+                  borderColor: "#045357",
+                  color: "#045357",
+                  minWidth: "120px",
+                }}
+              >
+                Video
+              </Button>
               <Button
                 variant="outlined"
                 startIcon={<MicIcon />}
