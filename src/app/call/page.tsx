@@ -20,7 +20,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import ScreenShareIcon from "@mui/icons-material/ScreenShare";
 import AddIcon from "@mui/icons-material/Add";
 import styles from "../telemedicine/Telemedicine.module.css";
-
+import Link from "next/link";
 const StyledAppBar = styled(AppBar)({
   backgroundColor: "#045357",
   color: "#ffffff",
@@ -131,19 +131,21 @@ const Call = () => {
               >
                 Call
               </Button>
-              <Button
-                variant="outlined"
-                startIcon={<VideocamIcon />}
-                sx={{
-                  mx: 1,
-                  my: 0.5,
-                  borderColor: "#045357",
-                  color: "#045357",
-                  minWidth: "120px",
-                }}
-              >
-                Video
-              </Button>
+              <Link href="/room">
+                <Button
+                  variant="outlined"
+                  startIcon={<VideocamIcon />}
+                  sx={{
+                    mx: 1,
+                    my: 0.5,
+                    borderColor: "#045357",
+                    color: "#045357",
+                    minWidth: "120px",
+                  }}
+                >
+                  Video
+                </Button>
+              </Link>
               <Button
                 variant="outlined"
                 startIcon={<MicIcon />}
