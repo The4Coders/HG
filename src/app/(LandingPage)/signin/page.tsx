@@ -4,7 +4,9 @@ import React from "react";
 
 const SignIn: React.FC = () => {
   const handleSignInClick = () => {
-    window.history.back();
+    if (typeof window !== "undefined") {
+      window.history.back();
+    }
   };
 
   return (
