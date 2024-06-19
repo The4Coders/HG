@@ -1,56 +1,10 @@
 "use client";
 
 import React from "react";
-import {
-  Grid,
-  Box,
-  AppBar,
-  Toolbar,
-  Typography,
-  Avatar,
-  IconButton,
-  Button,
-  Paper,
-  styled,
-} from "@mui/material";
-import VideocamIcon from "@mui/icons-material/Videocam";
-import CallIcon from "@mui/icons-material/Call";
-import MicIcon from "@mui/icons-material/Mic";
-import ChatIcon from "@mui/icons-material/Chat";
-import ScreenShareIcon from "@mui/icons-material/ScreenShare";
-import AddIcon from "@mui/icons-material/Add";
-import styles from "../telemedicine/Telemedicine.module.css";
 import Link from "next/link";
-const StyledAppBar = styled(AppBar)({
-  backgroundColor: "#045357",
-  color: "#ffffff",
-  boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-});
-
-const VideoContainer = styled(Paper)({
-  padding: "16px",
-  marginBottom: "16px",
-  borderRadius: "8px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  backgroundColor: "#ffffff",
-});
-
-const ActivityContainer = styled(Paper)({
-  padding: "16px",
-  borderRadius: "8px",
-  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-  backgroundColor: "#ffffff",
-});
-
-const SideBarContainer = styled(Paper)({
-  padding: "16px",
-  borderRadius: "8px",
-  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-  backgroundColor: "#ffffff",
-});
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import Room from "../room/page";
 
 const activities = [
   {
@@ -76,225 +30,109 @@ const activities = [
 
 const Call = () => {
   return (
-    <Box
-      sx={{ flexGrow: 1 }}
-      className={`bg-[#e0f2f1] min-h-screen ${styles.fadeIn}`}
-    >
-      <StyledAppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" color="inherit">
-            <AddIcon />
-          </IconButton>
-          <Typography variant="h6" style={{ flexGrow: 1, textAlign: "center" }}>
-            Virtual Meeting Dashboard
-          </Typography>
-          <Avatar src="/user.png" />
-        </Toolbar>
-      </StyledAppBar>
-      <Grid container spacing={2} sx={{ p: 2 }}>
-        <Grid item xs={12} md={8}>
-          <VideoContainer>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              mb={2}
+    <div className="bg-[#e0f2f1] min-h-screen">
+      <header className="bg-[#045357] text-white shadow-md">
+        <div className="flex items-center justify-between p-4">
+          <button className="text-white">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-6 h-6"
             >
-              <Avatar
-                alt="Doctor"
-                src="/profilePic.jpg"
-                sx={{ width: 100, height: 100, marginRight: 2 }}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 6v12m6-6H6"
               />
-              <Avatar
-                alt="Patient"
-                src="/profilePic2.jpg"
-                sx={{ width: 100, height: 100 }}
-              />
-            </Box>
-            <Typography variant="h6" className="text-[#045357]">
-              Dr. Ronnie Fleming
-            </Typography>
-            <Typography variant="caption" className="text-[#004d40]">
-              Duration: 00:15:24
-            </Typography>
-            <Box mt={2} display="flex" justifyContent="center" flexWrap="wrap">
-              <Button
-                variant="outlined"
-                startIcon={<CallIcon />}
-                sx={{
-                  mx: 1,
-                  my: 0.5,
-                  borderColor: "#045357",
-                  color: "#045357",
-                  minWidth: "120px",
-                }}
-              >
-                Call
-              </Button>
-              <Button
-                variant="outlined"
-                startIcon={<VideocamIcon />}
-                sx={{
-                  mx: 1,
-                  my: 0.5,
-                  borderColor: "#045357",
-                  color: "#045357",
-                  minWidth: "120px",
-                }}
-              >
-                Video
-              </Button>
-              <Button
-                variant="outlined"
-                startIcon={<MicIcon />}
-                sx={{
-                  mx: 1,
-                  my: 0.5,
-                  borderColor: "#045357",
-                  color: "#045357",
-                  minWidth: "120px",
-                }}
-              >
-                Mute
-              </Button>
-              <Button
-                variant="outlined"
-                startIcon={<ChatIcon />}
-                sx={{
-                  mx: 1,
-                  my: 0.5,
-                  borderColor: "#045357",
-                  color: "#045357",
-                  minWidth: "120px",
-                }}
-              >
-                Chat
-              </Button>
-              <Button
-                variant="outlined"
-                startIcon={<ScreenShareIcon />}
-                sx={{
-                  mx: 1,
-                  my: 0.5,
-                  borderColor: "#045357",
-                  color: "#045357",
-                  minWidth: "120px",
-                }}
-              >
-                Share Screen
-              </Button>
-            </Box>
-          </VideoContainer>
-          <ActivityContainer>
-            <Typography variant="h6" gutterBottom className="text-[#045357]">
-              Last activity
-            </Typography>
+            </svg>
+          </button>
+          <h1 className="text-lg">Virtual Meeting Dashboard</h1>
+          <Image
+            src="/user.png"
+            alt="User Avatar"
+            width={32}
+            height={32}
+            className="rounded-full"
+          />
+        </div>
+      </header>
+
+      <div className="p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="md:col-span-2">
+          <div className="bg-white p-4 mb-4 rounded-lg shadow-md">
+            <Room />
+          </div>
+
+          <div className="bg-white p-4 rounded-lg shadow-md">
+            <h2 className="text-lg text-[#045357] mb-4">Last activity</h2>
             {activities.map((activity, index) => (
-              <Box
+              <div
                 key={index}
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-                mb={2}
-                flexWrap="wrap"
+                className="flex items-center justify-between mb-4"
               >
-                <Avatar alt={activity.name} src="/profilePic.jpg" />
-                <Typography
-                  variant="body1"
-                  sx={{ flexGrow: 1, mx: 2, minWidth: "120px" }}
-                  className="text-[#045357]"
-                >
+                <Image
+                  src="/profilePic.jpg"
+                  alt={activity.name}
+                  width={32}
+                  height={32}
+                  className="rounded-full"
+                />
+                <p className="flex-grow mx-2 text-[#045357] min-w-[120px]">
                   {activity.name}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ minWidth: "80px" }}
-                  className="text-[#004d40]"
-                >
-                  {activity.date}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ minWidth: "80px" }}
-                  className="text-[#004d40]"
-                >
-                  {activity.time}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ flexGrow: 2, mx: 2, minWidth: "160px" }}
-                  className="text-[#004d40]"
-                >
+                </p>
+                <p className="min-w-[80px] text-[#004d40]">{activity.date}</p>
+                <p className="min-w-[80px] text-[#004d40]">{activity.time}</p>
+                <p className="flex-grow mx-2 min-w-[160px] text-[#004d40]">
                   {activity.summary}
-                </Typography>
-                <Button
-                  variant="contained"
-                  color={activity.repeat ? "secondary" : "primary"}
-                  sx={{
-                    backgroundColor: activity.repeat ? "#f50057" : "#045357",
-                  }}
+                </p>
+                <button
+                  className={`py-2 px-4 rounded ${
+                    activity.repeat ? "bg-pink-500" : "bg-[#045357]"
+                  } text-white`}
                 >
                   {activity.repeat ? "Repeat" : "Get info"}
-                </Button>
-              </Box>
+                </button>
+              </div>
             ))}
-          </ActivityContainer>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <SideBarContainer>
-            <Box mb={2}>
-              <Typography variant="h6" gutterBottom className="text-[#045357]">
-                Next Meeting: 28 Dec, 2023
-              </Typography>
-              <Typography
-                variant="body2"
-                gutterBottom
-                className="text-[#004d40]"
-              >
-                Discussion of blood test results and discussion of well-being.
-                Prescribing medications.
-              </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{ backgroundColor: "#045357" }}
-              >
-                More details
-              </Button>
-            </Box>
-            <Box mb={2}>
-              <Typography variant="h6" className="text-[#045357]">
-                Quote of the Day
-              </Typography>
-              <Typography variant="body2" className="text-[#004d40]">
-                &quot;Let thy food be thy medicine and thy medicine be thy
-                food.&quot; - Hippocrates
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="h6" className="text-[#045357]">
-                40% off premium
-              </Typography>
-              <Typography
-                variant="body2"
-                gutterBottom
-                className="text-[#004d40]"
-              >
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when.
-              </Typography>
-              <Button
-                variant="contained"
-                color="secondary"
-                sx={{ backgroundColor: "#f50057" }}
-              >
-                Upgrade
-              </Button>
-            </Box>
-          </SideBarContainer>
-        </Grid>
-      </Grid>
-    </Box>
+          </div>
+        </div>
+
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <div className="mb-4">
+            <h2 className="text-lg text-[#045357] mb-2">
+              Next Meeting: 28 Dec, 2023
+            </h2>
+            <p className="text-sm text-[#004d40] mb-2">
+              Discussion of blood test results and discussion of well-being.
+              Prescribing medications.
+            </p>
+            <button className="bg-[#045357] text-white py-2 px-4 rounded">
+              More details
+            </button>
+          </div>
+          <div className="mb-4">
+            <h2 className="text-lg text-[#045357] mb-2">Quote of the Day</h2>
+            <p className="text-sm text-[#004d40]">
+              &quot;Let thy food be thy medicine and thy medicine be thy
+              food.&quot; - Hippocrates
+            </p>
+          </div>
+          <div>
+            <h2 className="text-lg text-[#045357] mb-2">40% off premium</h2>
+            <p className="text-sm text-[#004d40] mb-2">
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when.
+            </p>
+            <button className="bg-pink-500 text-white py-2 px-4 rounded">
+              Upgrade
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
