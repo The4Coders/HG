@@ -1,6 +1,6 @@
 import OrgLayout from "@/components/orgLayout";
 import React from "react";
-
+//
 export default function page() {
   return (
     <main>
