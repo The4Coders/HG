@@ -12,12 +12,13 @@ import {
 import { useEffect, useState } from "react";
 import { Track } from "livekit-client";
 import { useSearchParams } from "next/navigation";
+import SuspenseWrapper from "../SuspenseWrapper"; // Ensure correct path
 
 function generateRandomRoomId() {
   return Math.floor(10000000 + Math.random() * 90000000).toString();
 }
 
-export default function Room() {
+function RoomContent() {
   const params = useSearchParams();
   const [room, setRoom] = useState<string>("");
   const [name, setName] = useState<string>("");
@@ -135,5 +136,13 @@ function MyVideoConference() {
     >
       <ParticipantTile />
     </GridLayout>
+  );
+}
+
+export default function Room() {
+  return (
+    <SuspenseWrapper>
+      <RoomContent />
+    </SuspenseWrapper>
   );
 }
