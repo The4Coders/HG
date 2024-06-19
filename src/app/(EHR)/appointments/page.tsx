@@ -101,6 +101,16 @@ export default function AppointmentPage() {
                   >
                     View Medical History
                   </button>
+                  <button
+                    onClick={() =>
+                      toast.success(
+                        "Your request has been sent to a doctor, you will receive an email shortly!"
+                      )
+                    }
+                    className="bg-[#367588] text-white px-4 py-2 rounded-lg shadow-md"
+                  >
+                    Become a Blood Donor
+                  </button>
                   <button className="bg-[#367588] text-white px-4 py-2 rounded-lg shadow-md">
                     <Link href="/contactus" className="w-full">
                       Contact Support

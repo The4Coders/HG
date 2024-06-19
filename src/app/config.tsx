@@ -64,7 +64,7 @@ export const OrgNavItems = () => {
       name: "Patients",
       href: "/patients",
       icon: <User size={20} />,
-      active: isNavItemActive(pathname, "/userprofile"),
+      active: isNavItemActive(pathname, "/patients"),
       position: "top",
     },
     {
@@ -72,6 +72,13 @@ export const OrgNavItems = () => {
       href: "/doctors",
       icon: <User size={20} />,
       active: isNavItemActive(pathname, "/doctors"),
+      position: "top",
+    },
+    {
+      name: "Donors",
+      href: "/donors",
+      icon: <User size={20} />,
+      active: isNavItemActive(pathname, "/donors"),
       position: "top",
     },
     {
@@ -83,9 +90,9 @@ export const OrgNavItems = () => {
     },
     {
       name: "Support",
-      href: "/contactus",
+      href: "/docsupport",
       icon: <Phone size={20} />,
-      active: isNavItemActive(pathname, "/contactus"),
+      active: isNavItemActive(pathname, "/docsupport"),
       position: "top",
     },
     {
