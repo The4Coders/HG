@@ -1,6 +1,8 @@
 "use client";
 
+import BarChartComponent from "@/components/charts/BarChartComponent";
 import OrgLayout from "@/components/orgLayout";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Activity,
   ArrowDown,
@@ -9,8 +11,11 @@ import {
   Hospital,
   PersonStanding,
 } from "lucide-react";
+import { useState } from "react";
 
 export default function Page() {
+  const [date, setDate] = useState<Date | undefined>(new Date());
+
   return (
     <main>
       <OrgLayout>
@@ -90,10 +95,28 @@ export default function Page() {
             </div>
           </section>
           {/* other section */}
-          <section className="border-2 border-primary h-[400px] flex flex-col gap-y-3 md:flex-row justify-start items-center gap-x-3 pe-3 my-3">
-           <div></div>
-           <div></div>
-            </section>
+          <section className="border-2 justify-between my-4 flex flex-col md:flex-row gap-y-3 items-center gap-x-3 pe-3">
+            <div className="w-[60%] p-3">
+              <p className="text-black font-semibold mb-4 text-xl ">Patients</p>
+
+              <div className="w-full h-80 flex flex-col justify-center items-center">
+                <BarChartComponent />
+              </div>
+            </div>
+            <div className="w-[30%] shadow-md p-3">
+              <p className="my-4 text-black font-semibold text-xl ">
+                Upcoming Appointments
+              </p>
+
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                className="rounded-md border"
+              />
+            </div>
+            <div></div>
+          </section>
         </main>
       </OrgLayout>
     </main>

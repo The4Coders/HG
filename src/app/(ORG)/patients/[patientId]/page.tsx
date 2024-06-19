@@ -11,45 +11,61 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
-export default function Page({ params }: any) {
-  // const router = useRouter();
-  // const { id } = router.query;
-  const [patient, setPatient] = useState(null);
-  const [loading, setLoading] = useState(true);
-  // useEffect(() => {
-  //   const fetchPatient = async () => {
-  //     try {
-  //       const res = await fetch(`/api/patients/${id}`);
-  //       if (!res.ok) {
-  //         throw new Error("Failed to fetch patient");
-  //       }
-  //       const data = await res.json();
-  //       setPatient(data.patient); // Assuming your API returns { patient: {...} }
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching patient:", error);
-  //     }
-  //   };
+interface PageParams {
+  // Define your type for params here if needed
+}
 
-  //   if (id) {
-  //     fetchPatient();
-  //   }
-  // }, [id]);
+export default function Page() {
+  const [patientData, setPatientData] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+  const { id } = useParams();
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+  useEffect(() => {
+    console.log("ID:", id);
 
-  // if (!patient) {
-  //   return <div>Patient not found</div>;
-  // }
+    if (!id) {
+      console.log("ID not available yet");
+      return;
+    }
+
+    console.log("ID is available:", id);
+
+    const getPatientById = async () => {
+      try {
+        console.log("Fetching patient data...");
+        const res = await fetch(`http://localhost:3000/api/patients/${id}`, {
+          cache: "no-store",
+        });
+
+        if (!res.ok) {
+          console.error("Failed to fetch Patient", res.statusText);
+          throw new Error("Failed to fetch Patient");
+        }
+
+        const data = await res.json();
+        console.log("Patient Data:", data);
+        setPatientData(data);
+      } catch (e: any) {
+        console.error("Error loading patient:", e.message);
+        setError("Error loading patient: " + e.message);
+      }
+    };
+
+    if (id) {
+      getPatientById();
+    }
+  }, [id]);
+
   return (
     <main>
       <OrgLayout>
-        <main className=" bg-white w-full">
+        <main className="bg-white w-full">
+          {" "}
           {/* Section Patient Name */}
           <section className="mt-4">
             <Breadcrumb>
@@ -67,9 +83,9 @@ export default function Page({ params }: any) {
             </Breadcrumb>
           </section>
           {/* patient */}
-          <section className="px-8 mt-8  flex flex-row justify-between w-full ">
+          <section className="px-8 mt-8 gap-y-6  flex flex-col lg:flex-row justify-between w-full ">
             {/* edit patient */}
-            <div className="w-[35%] shadow rounded-md p-8">
+            <div className="w-full lg:w-[35%] shadow rounded-md p-8">
               <section className="mt-6 flex justify-start gap-x-6 items-center">
                 {/* logo here */}
                 <div className="w-14 h-14 flex justify-center items-center rounded-full">
@@ -114,7 +130,7 @@ export default function Page({ params }: any) {
               </div>
             </div>
             {/* observations */}
-            <div className="p-8 w-[60%] shadow rounded-md h-auto">
+            <div className="p-8 w-full lg:w-[60%] shadow rounded-md h-auto">
               {/* title */}
               <div className="flex mb-8 justify-between items-center">
                 <h2 className=" text-xl font-bold">Observations</h2>
