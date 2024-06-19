@@ -107,7 +107,7 @@ export default function Page() {
 }
 
 function MyVideoConference() {
-  // `useTracks` returns all camera and screen share tracks. If a user
+  // `useTracks` returns all camera and screen share tracks. If user
   // joins without a published camera track, a placeholder track is returned.
   const tracks = useTracks(
     [
