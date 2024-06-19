@@ -1,10 +1,10 @@
-'use client';
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+"use client";
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const SignUp: React.FC = () => {
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
@@ -21,46 +21,46 @@ const SignUp: React.FC = () => {
     const confirmPassword = form.confirmPassword.value;
 
     if (!isValidEmail(email)) {
-      setError('Invalid Email Address');
+      setError("Invalid Email Address");
       return;
     }
 
     if (!password || password.length < 8) {
-      setError('Password must be at least 8 characters long');
+      setError("Password must be at least 8 characters long");
       return;
     }
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
     try {
-      const res = await fetch('/api/signup', {
-        method: 'POST',
+      const res = await fetch("/api/signup", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password, confirmPassword }),
       });
 
       const resData = await res.text();
-      console.log('Response Status:', res.status);
-      console.log('Response Data:', resData);
+      console.log("Response Status:", res.status);
+      console.log("Response Data:", resData);
 
       if (res.status === 400) {
         setError(resData);
       } else if (res.status === 200) {
-        setError('');
+        setError("");
         setShowModal(true);
         setTimeout(() => {
-          router.push('/onboarding');
+          router.push("/onboarding");
         }, 2000);
       } else {
-        setError('Unexpected error occurred. Please try again.');
+        setError("Unexpected error occurred. Please try again.");
       }
     } catch (error) {
-      setError('Error, try again');
+      setError("Error, try again");
       console.log(error);
     }
   };
@@ -68,7 +68,7 @@ const SignUp: React.FC = () => {
   return (
     <div className="bg-gradient-to-r from-white to-[#063B3F] flex items-center justify-center min-h-screen p-4">
       <div className="bg-[#7C989A] w-full max-w-4xl h-auto md:h-[600px] md:w-[840px] rounded-[20px] border-[2px] border-black border-t-0 border-opacity-30 shadow-md">
-      <div className="bg-[#65898C] w-full h-auto md:h-[584px] md:w-[820px] rounded-[20px] shadow-xl mx-auto flex flex-col md:flex-row border-[2px] border-black border-t-0 border-opacity-15">
+        <div className="bg-[#65898C] w-full h-auto md:h-[584px] md:w-[820px] rounded-[20px] shadow-xl mx-auto flex flex-col md:flex-row border-[2px] border-black border-t-0 border-opacity-15">
           <div className="bg-[#063B3F] flex-1 rounded-t-[20px] md:rounded-tl-[20px] md:rounded-bl-[20px] md:rounded-r-[160px] relative flex justify-center items-center p-8">
             <div className="text-white text-center flex flex-col items-center">
               <h2 className="text-[32px] md:text-[42px] font-medium mb-4 md:mb-10">
@@ -121,9 +121,10 @@ const SignUp: React.FC = () => {
                     width="20px"
                     height="20px"
                   >
-                    <path 
+                    <path
                       fill="#000000"
-                      d="M22.23 0H1.77C.79 0 0 .774 0 1.727v20.546C0 23.226.79 24 1.77 24h20.46c.98 0 1.77-.774 1.77-1.727V1.727C24 .774 23.21 0 22.23 0zM7.12 20.452H3.56V9h3.56v11.452zM5.34 7.545a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM20.452 20.452h-3.56V14.9c0-1.323-.027-3.026-1.84-3.026-1.842 0-2.124 1.433-2.124 2.914v5.664h-3.56V9h3.42v1.56h.05c.477-.9 1.635-1.845 3.367-1.845 3.6 0 4.27 2.367 4.27 5.444v6.293z" />
+                      d="M22.23 0H1.77C.79 0 0 .774 0 1.727v20.546C0 23.226.79 24 1.77 24h20.46c.98 0 1.77-.774 1.77-1.727V1.727C24 .774 23.21 0 22.23 0zM7.12 20.452H3.56V9h3.56v11.452zM5.34 7.545a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM20.452 20.452h-3.56V14.9c0-1.323-.027-3.026-1.84-3.026-1.842 0-2.124 1.433-2.124 2.914v5.664h-3.56V9h3.42v1.56h.05c.477-.9 1.635-1.845 3.367-1.845 3.6 0 4.27 2.367 4.27 5.444v6.293z"
+                    />
                   </svg>
                 </button>
                 <button className="flex items-center justify-center bg-white py-2 rounded-md w-[40px] border border-[#eeeeee]">
@@ -214,7 +215,7 @@ const SignUp: React.FC = () => {
           }
 
           .moving-wave-button::before {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: -120%;
