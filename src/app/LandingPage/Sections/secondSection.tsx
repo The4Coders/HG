@@ -89,7 +89,7 @@ const SecondSection: React.FC = () => {
                 </div>
                 {expandedItem === index && (
                   <div className="dummy-text mt-2 bg-[#E6E4E5] p-2 rounded-lg shadow-md text-gray-600 text-sm md:text-base w-[250px]">
-                    <p>{dummyTexts[index]}</p>
+                    <p>{dummyTexts[index].replace(/'/g, "&apos;")}</p>
                   </div>
                 )}
               </li>
