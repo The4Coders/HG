@@ -5,7 +5,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Room from "../room/page"; // Ensure correct path
+import Room from "../room/page";
 
 const activities = [
   {
