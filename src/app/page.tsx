@@ -10,7 +10,7 @@ export default function page() {
   return (
     <main className="w-full overflow-hidden">
       <Navbar />
-      <HeroSection />
+      {/* <HeroSection /> */}
       {/* 
       <SecondSection />
       <CarexaSection />
