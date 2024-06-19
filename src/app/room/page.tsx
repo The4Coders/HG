@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { Track } from "livekit-client";
 import { useSearchParams } from "next/navigation";
-import SuspenseWrapper from "../SuspenseWrapper"; // Ensure correct path
+import SuspenseWrapper from "../suspenseWrapper";
 
 function generateRandomRoomId() {
   return Math.floor(10000000 + Math.random() * 90000000).toString();
