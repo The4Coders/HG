@@ -14,9 +14,7 @@ import { Track } from "livekit-client";
 import { useSearchParams } from "next/navigation";
 import SuspenseWrapper from "../suspenseWrapper";
 
-function generateRandomRoomId() {
-  return Math.floor(10000000 + Math.random() * 90000000).toString();
-}
+const FIXED_ROOM_ID = "702906175";
 
 function RoomContent() {
   const params = useSearchParams();
@@ -24,7 +22,6 @@ function RoomContent() {
   const [name, setName] = useState<string>("");
   const [token, setToken] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const [generatedRoomId, setGeneratedRoomId] = useState<string>("");
 
   useEffect(() => {
     const roomParam = params.get("room");
@@ -35,17 +32,13 @@ function RoomContent() {
     }
   }, [params]);
 
-  useEffect(() => {
-    setGeneratedRoomId(generateRandomRoomId());
-  }, []);
-
   async function getToken() {
     if (!room || !name) {
       setError("Room ID and Name are required.");
       return;
     }
 
-    if (room !== generatedRoomId) {
+    if (room !== FIXED_ROOM_ID) {
       setError("Input Correct Room ID.");
       return;
     }
@@ -66,6 +59,17 @@ function RoomContent() {
     }
   }
 
+  // Clear the error message after a delay
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError("");
+      }, 1500); // Adjust the delay as needed
+
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
   if (token === "") {
     return (
       <div className="flex flex-col items-center justify-center py-4 h-[fit-content] bg-[#e0f2f1] rounded-xl">
@@ -81,14 +85,20 @@ function RoomContent() {
             placeholder="Room ID"
             value={room}
             className="mb-4 ring-1 ring-gray-300 px-2 py-3 rounded-sm"
-            onChange={(e) => setRoom(e.target.value)}
+            onChange={(e) => {
+              setRoom(e.target.value);
+              setError(""); // Clear error when user starts typing
+            }}
           />
           <input
             type="text"
             placeholder="Name"
             value={name}
             className="mb-4 ring-1 ring-gray-300 px-2 py-3 rounded-sm"
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value);
+              setError(""); // Clear error when user starts typing
+            }}
           />
           {error && <p className="text-red-500 mb-4">{error}</p>}
           <button
@@ -98,7 +108,7 @@ function RoomContent() {
             Join
           </button>
         </form>
-        <p className="mt-4 text-[#045357]">Room ID: {generatedRoomId}</p>
+        <p className="mt-4 text-[#045357]">Room ID: {FIXED_ROOM_ID}</p>
       </div>
     );
   }
