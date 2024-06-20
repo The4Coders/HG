@@ -11,24 +11,27 @@ const HeroSection: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentDiv, setCurrentDiv] = useState(0);
 
-  const divs = [
-    { className: "top-28 right-0", icon: <Pill />, text: "Medicine" },
-    {
-      className: "bottom-56 left-0",
-      icon: <MessageCircleMore />,
-      text: "24/7 Consultation",
-    },
-    {
-      className: "bottom-28 right-24",
-      icon: <ClipboardPlus />,
-      text: "Electronic",
-    },
-    {
-      className: "top-32 left-24",
-      icon: <Hospital />,
-      text: "25 Clinic Locations",
-    },
-  ];
+  const divs = useMemo(
+    () => [
+      { className: "top-28 right-0", icon: <Pill />, text: "Medicine" },
+      {
+        className: "bottom-56 left-0",
+        icon: <MessageCircleMore />,
+        text: "24/7 Consultation",
+      },
+      {
+        className: "bottom-28 right-24",
+        icon: <ClipboardPlus />,
+        text: "Electronic",
+      },
+      {
+        className: "top-32 left-24",
+        icon: <Hospital />,
+        text: "25 Clinic Locations",
+      },
+    ],
+    []
+  );
 
   const texts = useMemo(
     () => ["Health", "Medicine", "Wellness", "Fitness", "Nutrition"],
@@ -39,36 +42,37 @@ const HeroSection: React.FC = () => {
     const interval = setInterval(() => {
       setCurrentDiv((prevDiv) => (prevDiv + 1) % divs.length);
     }, 3000);
-
     return () => clearInterval(interval);
   }, [divs.length]);
 
   useEffect(() => {
-    let animatedString = "";
-    let isCancelled = false;
+    if (typeof window !== "undefined") {
+      let animatedString = "";
+      let isCancelled = false;
 
-    const animateText = () => {
-      const delay = 300;
+      const animateText = () => {
+        const delay = 300;
 
-      for (let i = 0; i < texts[currentIndex].length; i++) {
+        for (let i = 0; i < texts[currentIndex].length; i++) {
+          setTimeout(() => {
+            if (isCancelled) return;
+            animatedString += texts[currentIndex][i];
+            setAnimatedText(animatedString);
+          }, i * delay);
+        }
+
         setTimeout(() => {
           if (isCancelled) return;
-          animatedString += texts[currentIndex][i];
-          setAnimatedText(animatedString);
-        }, i * delay);
-      }
+          document.getElementById("animatedText")?.classList.add("slide-out");
+        }, texts[currentIndex].length * delay + 500);
+      };
 
-      setTimeout(() => {
-        if (isCancelled) return;
-        document.getElementById("animatedText")?.classList.add("slide-out");
-      }, texts[currentIndex].length * delay + 500);
-    };
+      animateText();
 
-    animateText();
-
-    return () => {
-      isCancelled = true;
-    };
+      return () => {
+        isCancelled = true;
+      };
+    }
   }, [currentIndex, texts]);
 
   const handleAnimationEnd = () => {
@@ -165,12 +169,9 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Teeth, Brain, Eye */}
-
       <div className="bg-[#045357] py-12">
         <div className="container mx-auto p-4 md:p-4 bg-white rounded-[30px] bg-opacity-30 backdrop-blur-lg border border-[#E6E4E5] w-full md:w-[1150px]">
           <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8">
-            {/* First content */}
             <div className="flex flex-col items-start p-4 rounded-lg down">
               <Image
                 src="/images/system/teeth.png"
@@ -189,7 +190,6 @@ const HeroSection: React.FC = () => {
               </p>
             </div>
 
-            {/* Second content */}
             <div className="flex flex-col items-start p-4 rounded-lg down">
               <Image
                 src="/images/system/brain.png"
@@ -207,7 +207,6 @@ const HeroSection: React.FC = () => {
               </p>
             </div>
 
-            {/* Third content */}
             <div className="flex flex-col items-start p-4 rounded-lg down">
               <Image
                 src="/images/system/eye.png"
