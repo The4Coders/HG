@@ -1,7 +1,6 @@
 import Navbar from "./LandingPage/Navbar/navbar";
 import dynamic from "next/dynamic";
 
-// Dynamically import all sections with SSR disabled
 const DynamicHeroSection = dynamic(
   () => import("./LandingPage/Sections/heroSection"),
   {
