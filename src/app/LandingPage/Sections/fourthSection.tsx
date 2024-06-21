@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import React, { useEffect } from 'react';
-import ScrollReveal from 'scrollreveal';
-import Link from 'next/link';
+import React, { useEffect } from "react";
+import ScrollReveal from "scrollreveal";
+import Link from "next/link";
 
 const FourthSection: React.FC = () => {
   useEffect(() => {
     const sr = ScrollReveal({
-      origin: 'bottom',
-      distance: '100px',
+      origin: "bottom",
+      distance: "100px",
       duration: 1000,
       delay: 200,
       reset: true,
     });
 
-    sr.reveal('.beneath', { interval: 200 });
+    sr.reveal(".beneath", { interval: 200 });
   }, []);
 
   return (
@@ -22,9 +22,8 @@ const FourthSection: React.FC = () => {
       <div className="text-center mb-16 flex flex-col md:flex-row gap-[100px] items-center justify-center">
         <div className="beneath">
           <h2 className="text-5xl font-bold text-gray-500 max-w-[600px] leading-[60px] text-start">
-            We Make It{' '}
-            <span className="text-6xl text-[#063b3f]">Easy</span> By Keeping
-            Things Simple
+            We Make It <span className="text-6xl text-[#063b3f]">Easy</span> By
+            Keeping Things Simple
           </h2>
         </div>
         <div className="beneath">
@@ -36,12 +35,11 @@ const FourthSection: React.FC = () => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-8 justify-center">
-        <Link href="/">
+        <Link href="/records">
           <div className="bg-gray-100 p-6 rounded-lg text-center relative flex-1 max-w-[350px] group beneath shadow-xl">
             <h3 className="text-xl text-black mb-4 w-[200px] text-start">
-              Provide{' '}
-              <span className="text-[#063b3f]">General Medical</span> Services
-              for Everyone
+              Provide <span className="text-[#063b3f]">General Medical</span>{" "}
+              Services for Everyone
             </h3>
             <p className="text-gray-500 max-w-[280px] text-start text-sm">
               We understand that navigating the world of healthcare can be
@@ -64,7 +62,7 @@ const FourthSection: React.FC = () => {
             </div>
           </div>
         </Link>
-        <Link href="/">
+        <Link href="/records">
           <div className="bg-gray-100 p-6 rounded-lg text-center relative flex-1 max-w-[350px] group beneath shadow-xl">
             <div className="text-4xl mb-8 text-start">
               <svg
@@ -82,8 +80,8 @@ const FourthSection: React.FC = () => {
               <span className="text-xs">see records</span> ➔
             </div>
             <h3 className="text-xl text-black mb-4 w-[200px] text-start">
-              Professional{' '}
-              <span className="text-[#063b3f]">Mental Health Consultation</span>{' '}
+              Professional{" "}
+              <span className="text-[#063b3f]">Mental Health Consultation</span>{" "}
               for Everyone
             </h3>
             <p className="text-gray-500 max-w-[280px] text-start text-sm">
@@ -92,12 +90,11 @@ const FourthSection: React.FC = () => {
             </p>
           </div>
         </Link>
-        <Link href="/">
+        <Link href="/records">
           <div className="bg-gray-100 p-6 rounded-lg text-center relative flex-1 max-w-[350px] group beneath shadow-xl">
             <h3 className="text-xl text-black mb-4 w-[200px] text-start">
-              Deliver Life{' '}
-              <span className="text-[#063b3f]">Wellness Care</span> for Everyone
-              Health
+              Deliver Life <span className="text-[#063b3f]">Wellness Care</span>{" "}
+              for Everyone Health
             </h3>
             <p className="text-gray-600 max-w-[280px] text-start text-sm">
               Don’t hesitate to ask questions about your condition, treatment
