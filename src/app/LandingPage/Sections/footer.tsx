@@ -1,29 +1,29 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
+"use client";
 
-import React, { useEffect } from 'react';
-import Image from 'next/image';
-import ScrollReveal from 'scrollreveal';
+import React, { useEffect } from "react";
+import Image from "next/image";
+import ScrollReveal from "scrollreveal";
 
 const Footer: React.FC = () => {
   useEffect(() => {
     const sr = ScrollReveal({
-      origin: 'bottom',
-      distance: '100px',
+      origin: "bottom",
+      distance: "100px",
       duration: 1500,
       delay: 200,
       reset: true,
     });
 
-    sr.reveal('.footer-logo', { delay: 200 });
-    sr.reveal('.footer-text', { delay: 400 });
-    sr.reveal('.footer-button', { delay: 600 });
-    sr.reveal('.footer-info', { delay: 800 });
-    sr.reveal('.footer-learn', { delay: 1000 });
-    sr.reveal('.footer-community', { delay: 1200 });
-    sr.reveal('.footer-stay', { delay: 1400 });
-    sr.reveal('.footer-icons', { delay: 1600 });
-    sr.reveal('.footer-copyright', { delay: 1800 });
+    sr.reveal(".footer-logo", { delay: 200 });
+    sr.reveal(".footer-text", { delay: 400 });
+    sr.reveal(".footer-button", { delay: 600 });
+    sr.reveal(".footer-info", { delay: 800 });
+    sr.reveal(".footer-learn", { delay: 1000 });
+    sr.reveal(".footer-community", { delay: 1200 });
+    sr.reveal(".footer-stay", { delay: 1400 });
+    sr.reveal(".footer-icons", { delay: 1600 });
+    sr.reveal(".footer-copyright", { delay: 1800 });
   }, []);
 
   return (
@@ -163,7 +163,7 @@ const Footer: React.FC = () => {
         }
 
         .effect::after {
-          content: '';
+          content: "";
           position: absolute;
           bottom: 0;
           left: 0;
@@ -189,7 +189,7 @@ const Footer: React.FC = () => {
         }
 
         .moving-wave-button::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: -120%;

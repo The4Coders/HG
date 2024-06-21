@@ -1,16 +1,25 @@
 /* eslint-disable react/jsx-key */
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import ScrollReveal from 'scrollreveal';
-import { FaStethoscope, FaHeartbeat, FaPills, FaSyringe, FaUserMd, FaAmbulance, FaBriefcaseMedical, FaXRay } from 'react-icons/fa';
+import React, { useEffect, useState } from "react";
+import ScrollReveal from "scrollreveal";
+import {
+  FaStethoscope,
+  FaHeartbeat,
+  FaPills,
+  FaSyringe,
+  FaUserMd,
+  FaAmbulance,
+  FaBriefcaseMedical,
+  FaXRay,
+} from "react-icons/fa";
 
 const AnimationSection: React.FC = () => {
   const [showFullText, setShowFullText] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setShowFullText(prev => !prev);
+      setShowFullText((prev) => !prev);
     }, 4000);
 
     return () => clearInterval(interval);
@@ -19,26 +28,41 @@ const AnimationSection: React.FC = () => {
   useEffect(() => {
     const sr = ScrollReveal();
 
-    sr.reveal('.refeal', {
-      distance: '50px',
+    sr.reveal(".refeal", {
+      distance: "50px",
       duration: 1500,
-      easing: 'ease-in-out',
-      origin: 'bottom',
+      easing: "ease-in-out",
+      origin: "bottom",
       reset: true,
     });
   }, []);
 
   const icons = [
-    <FaStethoscope />, null, <FaHeartbeat />, null, <FaPills />,
-    null, <FaSyringe />, null, <FaUserMd />, null,
-    <FaAmbulance />, null, <FaBriefcaseMedical />, null, <FaXRay />
+    <FaStethoscope />,
+    null,
+    <FaHeartbeat />,
+    null,
+    <FaPills />,
+    null,
+    <FaSyringe />,
+    null,
+    <FaUserMd />,
+    null,
+    <FaAmbulance />,
+    null,
+    <FaBriefcaseMedical />,
+    null,
+    <FaXRay />,
   ];
 
   return (
     <div className="relative flex justify-center items-center h-[300px] bg-[#045357]">
       <div className="grid grid-cols-5 grid-rows-3 gap-4 absolute w-full h-full p-4">
         {icons.map((Icon, index) => (
-          <div key={index} className="flex justify-center items-center text-[#E6E4E5] text-[40px] reveal opacity-40">
+          <div
+            key={index}
+            className="flex justify-center items-center text-[#E6E4E5] text-[40px] reveal opacity-40"
+          >
             {Icon}
           </div>
         ))}
@@ -90,7 +114,8 @@ const AnimationSection: React.FC = () => {
           }
         }
         .animate-typing {
-          animation: typing 2s steps(10, end) forwards, hop 2s infinite, sink 2s 2s forwards;
+          animation: typing 2s steps(10, end) forwards, hop 2s infinite,
+            sink 2s 2s forwards;
           white-space: nowrap;
           overflow: hidden;
         }
