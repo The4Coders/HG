@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
 
 const OnboardingScreen: React.FC = () => {
   const [isUser, setIsUser] = useState(true);
@@ -10,6 +11,7 @@ const OnboardingScreen: React.FC = () => {
     setIsUser(true);
     setStep(1);
   };
+
   const handleOrgClick = () => {
     setIsUser(false);
     setStep(1);
@@ -18,8 +20,21 @@ const OnboardingScreen: React.FC = () => {
   const nextStep = () => setStep((prevStep) => prevStep + 1);
   const prevStep = () => setStep((prevStep) => prevStep - 1);
 
+  const handleSubmit = () => {
+    if (typeof window !== "undefined") {
+      if (isUser) {
+        window.location.href = "/records";
+      } else {
+        window.location.href = "/dashboard";
+      }
+    }
+  };
+
   return (
-    <div className="h-[88vh] flex flex-col justify-center items-center px-4">
+    <div className="h-[80vh] flex flex-col justify-center items-center px-4 border border-gray-200">
+      <h2 className="text-2xl font-bold mb-20">
+        Welcome to the Onboarding Process!
+      </h2>
       <h1 className="text-3xl font-bold mb-2">Register as</h1>
       <div className="flex mb-8">
         <button
@@ -53,7 +68,7 @@ const OnboardingScreen: React.FC = () => {
           </button>
         )}
         {isUser ? <UserForm step={step} /> : <OrganizationForm step={step} />}
-        {step < (isUser ? 6 : 6) && (
+        {step < 6 && (
           <button
             onClick={nextStep}
             className="absolute right-0 top-1/2 transform -translate-y-1/2 text-[#063B3F] font-bold text-2xl"
@@ -61,9 +76,9 @@ const OnboardingScreen: React.FC = () => {
             &gt;
           </button>
         )}
-        {step === (isUser ? 6 : 6) && (
+        {step === 6 && (
           <button
-            type="submit"
+            onClick={handleSubmit}
             className="w-full p-2 bg-[#063B3F] text-[#eeeeee] rounded-md mt-4"
           >
             Submit
@@ -234,4 +249,9 @@ const OrganizationForm: React.FC<{ step: number }> = ({ step }) => {
   }
 };
 
-export default OnboardingScreen;
+const DynamicOnboardingScreen = dynamic(
+  () => Promise.resolve(OnboardingScreen),
+  { ssr: false }
+);
+
+export default DynamicOnboardingScreen;
