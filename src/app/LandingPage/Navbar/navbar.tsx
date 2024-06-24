@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -17,10 +17,10 @@ const Navbar = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -31,7 +31,7 @@ const Navbar = () => {
   return (
     <nav
       className={`bg-[#E6E4E5] fixed top-0 w-full h-[80px] flex items-center ${
-        scrolled ? 'shadow-lg' : ''
+        scrolled ? "shadow-lg" : ""
       } z-[1000]`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -40,7 +40,7 @@ const Navbar = () => {
             <div className="flex-shrink-0 flex gap-2 items-center">
               <Image
                 className="h-8 w-8 text-black rounded-[50px]"
-                src="/images/Logo.png"
+                src="/Logo.png"
                 width={50}
                 height={50}
                 alt="Logo"
@@ -103,7 +103,7 @@ const Navbar = () => {
       </div>
       <div
         className={`md:hidden absolute top-16 right-0 w-full bg-[#E6E4E5] shadow-lg z-[999] transition-transform transform origin-top ${
-          menuOpen ? 'animate-menu-slide-in' : 'animate-menu-slide-out'
+          menuOpen ? "animate-menu-slide-in" : "animate-menu-slide-out"
         }`}
       >
         <div className="flex flex-col items-end px-4 pt-2 pb-3 space-y-1 sm:px-3">
@@ -139,7 +139,7 @@ const Navbar = () => {
         }
 
         .line::after {
-          content: '';
+          content: "";
           position: absolute;
           bottom: -2px;
           left: 0;

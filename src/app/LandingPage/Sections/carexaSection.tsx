@@ -98,7 +98,7 @@ const CarexaSection: React.FC = () => {
         <div className="w-full md:w-[70%] max-w-[xl] md:flex md:flex-row md:justify-center md:mb-8 down">
           <div className="md:w-1/2 md:mb-0 mb-8 hidden md:block">
             <Image
-              src="/images/carexa.png"
+              src="/carexa.png"
               alt="Carexa"
               width={500}
               height={500}
@@ -110,7 +110,7 @@ const CarexaSection: React.FC = () => {
               <div className="flex items-center mb-4">
                 <div className="md:block">
                   <Image
-                    src="/images/carexa.png"
+                    src="/carexa.png"
                     alt="Carexa"
                     width={50}
                     height={50}
