@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
         <div className="w-full lg:w-1/4 mb-6 lg:mb-0 footer-logo">
           <div className="flex flex-row items-center gap-4 h-auto mb-6">
             <Image
-              src="/images/Logo.png"
+              src="/Logo.png"
               alt="logo"
               className="rounded-[50px]"
               width={70}
