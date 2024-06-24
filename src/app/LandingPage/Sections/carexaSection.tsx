@@ -46,7 +46,6 @@ const CarexaSection: React.FC = () => {
   };
 
   const getResponse = (question: string) => {
-    // Define some sample questions and answers
     const qa: { [key: string]: string } = {
       Hello: "Hello! How can I help you with your health today?",
       Hey: "Hey! What can I do for you today?",
