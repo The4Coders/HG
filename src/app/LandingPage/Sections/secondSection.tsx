@@ -92,7 +92,7 @@ const SecondSection: React.FC = () => {
               </li>
             ))}
           </ul>
-          <Link href="/tele">
+          <Link href="/telemedicine">
             <button
               className="bg-[#063b3f] text-white text-sm md:text-[20px] mt-8 md:mt-12 py-2 px-6 rounded-[50px] hover:bg-[#045357] transition duration-300 h-[60px] md:w-56 hover:transform hover:translate-x-4 hover:shadow-lg moving-wave-button"
             >
@@ -108,7 +108,7 @@ const SecondSection: React.FC = () => {
               alt="Doctor"
               width={700}
               height={700}
-              className="w-full h-auto md:h-[600px] relative z-20"
+              className="w-full h-auto md:h-[600px] relative z-20 border border-black border-opacity-30"
               style={{
                 borderTopLeftRadius: '250px',
                 borderBottomRightRadius: '200px',
@@ -162,7 +162,7 @@ const SecondSection: React.FC = () => {
                 Feel Support Always
               </p>
             </div>
-            <div className="md:right-[0] absolute top-[212px] bg-none p-4 rounded-lg z-30 opacity-0 transition-all duration-700 group-hover:right-[173px] group-hover:opacity-100">
+            <div className="md:right-[0] absolute top-[0] md:top-[212px] bg-none p-4 rounded-lg z-30 opacity-0 transition-all duration-700 group-hover:right-[173px] group-hover:opacity-100 ">
               <p className="text-xs md:text-sm mb-1">Excellent</p>
               <p className="text-xl md:text-3xl font-semibold">98%</p>
             </div>

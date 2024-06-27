@@ -12,7 +12,7 @@ const HeroSection: React.FC = () => {
   const [currentDiv, setCurrentDiv] = useState(0);
 
   const divs = [
-    { className: 'top-28 right-0', icon: <Pill />, text: 'Medicine' },
+    { className: 'top-28 right-24', icon: <Pill />, text: 'Medicine' },
     {
       className: 'bottom-56 left-0',
       icon: <MessageCircleMore />,
@@ -135,12 +135,12 @@ const HeroSection: React.FC = () => {
             alt="Nurse"
             width={500}
             height={500}
-            className="w-full h-auto max-w-[500px] my-6 mx-auto p-4 md:p-10"
+            className="w-full h-auto max-w-[500px] my-6 mx-auto border border-black border-opacity-30"
             style={{
-              borderTopLeftRadius: '200px',
-              borderBottomRightRadius: '200px',
-              borderBottomLeftRadius: '90px',
-              borderTopRightRadius: '70px',
+              borderTopLeftRadius: '80px',
+              borderBottomRightRadius: '80px',
+              borderBottomLeftRadius: '30px',
+              borderTopRightRadius: '20px',
             }}
           />
           {divs.map((div, index) => (
