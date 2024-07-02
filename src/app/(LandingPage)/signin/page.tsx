@@ -1,12 +1,18 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 
 const SignIn: React.FC = () => {
   const router = useRouter();
   const [error, setError] = useState("");
   const session = useSession();
+
+  useEffect(() => {
+    if (session?.status === "authenticated") {
+      router.replace("/records");
+    }
+  }, [session, router]);
 
   const isValidEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -18,7 +24,6 @@ const SignIn: React.FC = () => {
     const form = e.target as HTMLFormElement;
     const email = form.email.value;
     const password = form.password.value;
-    const confirmPassword = form.confirmPassword.value;
 
     if (!isValidEmail(email)) {
       setError("Invalid Email Address");
@@ -30,10 +35,10 @@ const SignIn: React.FC = () => {
       return;
     }
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
+    // if (password !== confirmPassword) {
+    //   setError("Passwords do not match");
+    //   return;
+    // }
 
     const res = await signIn("credentials", {
       redirect: false,
@@ -130,15 +135,17 @@ const SignIn: React.FC = () => {
                   </svg>
                 </button>
               </div>
-              <form action="">
+              <form onSubmit={handleSubmit}>
                 <div className="flex items-center flex-col">
                   <input
+                    name="email"
                     type="email"
                     required
                     placeholder="Email"
                     className="border border-gray-300 bg-[#eeeeee] rounded-[8px] py-2 px-4 focus:outline-none focus:border-[#063b3f] w-[260px] md:w-[300px]"
                   />
                   <input
+                    name="password"
                     type="password"
                     required
                     placeholder="Password"
@@ -154,7 +161,9 @@ const SignIn: React.FC = () => {
                   </button>
                 </div>
                 {error && (
-                  <p className="text-red-600 text-[1rem] mb-4">{error}</p>
+                  <p className="text-red-600 text-[1rem] mt-4 mb-4 text-center">
+                    {error}
+                  </p>
                 )}
               </form>
             </div>

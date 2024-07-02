@@ -29,8 +29,10 @@ export const authOptions: any = {
               return user;
             }
           }
+          return null;
         } catch (err: any) {
-          throw new Error(err);
+          console.error("Error during user authorization:", err);
+          throw new Error("Authorization failed. Please try again.");
         }
       },
     }),
@@ -42,4 +44,5 @@ export const authOptions: any = {
   ],
 };
 
-export default NextAuth(authOptions);
+export const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
