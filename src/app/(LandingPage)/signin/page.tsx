@@ -1,8 +1,54 @@
 "use client";
-
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { signIn, useSession } from "next-auth/react";
 
 const SignIn: React.FC = () => {
+  const router = useRouter();
+  const [error, setError] = useState("");
+  const session = useSession();
+
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const email = form.email.value;
+    const password = form.password.value;
+    const confirmPassword = form.confirmPassword.value;
+
+    if (!isValidEmail(email)) {
+      setError("Invalid Email Address");
+      return;
+    }
+
+    if (!password || password.length < 8) {
+      setError("Password must be at least 8 characters long");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
+    if (res?.error) {
+      setError("Invalid Email or Password");
+      if (res?.url) router.replace("/records");
+    } else {
+      setError("");
+    }
+  };
+
   const handleSignInClick = () => {
     if (typeof window !== "undefined") {
       window.history.back();
@@ -84,28 +130,33 @@ const SignIn: React.FC = () => {
                   </svg>
                 </button>
               </div>
-              <div className="flex items-center flex-col">
-                <input
-                  type="email"
-                  required
-                  placeholder="Email"
-                  className="border border-gray-300 bg-[#eeeeee] rounded-[8px] py-2 px-4 focus:outline-none focus:border-[#063b3f] w-[260px] md:w-[300px]"
-                />
-                <input
-                  type="password"
-                  required
-                  placeholder="Password"
-                  className="border border-gray-300 bg-[#eeeeee] rounded-[8px] py-2 px-4 mt-4 focus:outline-none focus:border-[#063b3f] w-[260px] md:w-[300px]"
-                />
-              </div>
-              <p className="text-center text-gray-600 text-base mt-6 cursor-pointer hover:underline">
-                Forgot Your Password?
-              </p>
-              <div className="text-center">
-                <button className="bg-[#063b3f] text-white py-3 px-14 rounded-[8px] uppercase w-[200px] moving-wave-button">
-                  Login
-                </button>
-              </div>
+              <form action="">
+                <div className="flex items-center flex-col">
+                  <input
+                    type="email"
+                    required
+                    placeholder="Email"
+                    className="border border-gray-300 bg-[#eeeeee] rounded-[8px] py-2 px-4 focus:outline-none focus:border-[#063b3f] w-[260px] md:w-[300px]"
+                  />
+                  <input
+                    type="password"
+                    required
+                    placeholder="Password"
+                    className="border border-gray-300 bg-[#eeeeee] rounded-[8px] py-2 px-4 mt-4 focus:outline-none focus:border-[#063b3f] w-[260px] md:w-[300px]"
+                  />
+                </div>
+                <p className="text-center text-gray-600 text-base mt-6 cursor-pointer hover:underline">
+                  Forgot Your Password?
+                </p>
+                <div className="text-center">
+                  <button className="bg-[#063b3f] text-white py-3 px-14 rounded-[8px] uppercase w-[200px] moving-wave-button">
+                    Login
+                  </button>
+                </div>
+                {error && (
+                  <p className="text-red-600 text-[1rem] mb-4">{error}</p>
+                )}
+              </form>
             </div>
           </div>
 
