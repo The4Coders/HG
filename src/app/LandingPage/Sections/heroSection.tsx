@@ -139,7 +139,7 @@ const HeroSection: React.FC = () => {
             alt="Nurse"
             width={500}
             height={500}
-            className="w-full h-auto max-w-[500px] my-6 mx-auto p-4 md:p-10"
+            className="w-full h-auto max-w-[500px] my-6 mx-auto border border-black border-opacity-30"
             style={{
               borderTopLeftRadius: "200px",
               borderBottomRightRadius: "200px",
