@@ -1,6 +1,5 @@
 // @ts-nocheck
 /* eslint-disable */
-
 "use client";
 import { useState, useMemo, useEffect } from "react";
 import OrgLayout from "@/components/orgLayout";
@@ -14,6 +13,7 @@ import {
 } from "react-table";
 import Link from "next/link";
 import { Toaster, toast } from "sonner";
+import { useRouter } from "next/navigation";
 interface Patient {
   generatedId: number;
   _id: string;
@@ -74,12 +74,16 @@ export default function Page() {
     null
   );
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/patients", {
-          cache: "no-store",
-        });
+        const res = await fetch(
+          "https://reminiscent-tree-tested-brick-production.pipeops.app/api/patients",
+          {
+            cache: "no-store",
+          }
+        );
         if (!res.ok) {
           throw new Error("Failed to fetch Patients");
         }
@@ -165,83 +169,44 @@ export default function Page() {
   // end modal funcitons
   //
   // Function to add a new patient
-  // const handleSubmit = async (e: any) => {
-  //   e.preventDefault();
-  //   console.log("Button clicked");
-  //   const payload = {
-  //     name: name,
-  //     age: age,
-  //     phone: phone,
-  //     diagnosis: diagnosis,
-  //   };
-  //   console.log("Payload:", payload);
-  //   try {
-  //     const res = await fetch("http://localhost:3000/api/patients", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ name, age, phone, diagnosis }),
-  //     });
-  //     // if (res.ok) {
-  //     //   console.log("Patient Added!");
-  //     //   setTimeout(() => {
-  //     //     toast.success("Patient added successfully!");
-  //     //     setIsModalOpen(false);
-  //     //   }, 2000);
-  //     // }
-  //     if (res.ok) {
-  //       const newPatient = await res.json(); // Assuming the new patient data is returned from the API
-  //       setPatients((prevPatients) => [...prevPatients, newPatient]);
-  //       toast.success("Patient added successfully!");
-  //       setIsModalOpen(false);
-  //     }
-  //   } catch (e: any) {
-  //     console.log("Error:", e);
-  //   }
-  // };
-  //
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-
+    console.log("Button clicked");
     const payload = {
       name: name,
-      age: parseInt(age),
+      age: age,
       phone: phone,
       diagnosis: diagnosis,
     };
-
+    console.log("Payload:", payload);
     try {
-      setIsLoading(true);
-
-      const res = await fetch("http://localhost:3000/api/patients", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
+      const res = await fetch(
+        "https://reminiscent-tree-tested-brick-production.pipeops.app/api/patients",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, age, phone, diagnosis }),
+        }
+      );
+      // if (res.ok) {
+      //   console.log("Patient Added!");
+      //   setTimeout(() => {
+      //     toast.success("Patient added successfully!");
+      //     setIsModalOpen(false);
+      //   }, 2000);
+      // }
       if (res.ok) {
-        const newPatient = await res.json();
+        const newPatient = await res.json(); // Assuming the new patient data is returned from the API
         setPatients((prevPatients) => [...prevPatients, newPatient]);
-        toast.success("Patient added successfully, reload!");
+        toast.success("Patient added successfully!");
         setIsModalOpen(false);
-        setName("");
-        setAge("");
-        setPhone("");
-        setDiagnosis("");
-      } else {
-        throw new Error("Failed to add patient");
       }
-    } catch (error) {
-      console.error("Error adding patient:", error);
-      toast.error("Failed to add patient");
-    } finally {
-      setIsLoading(false);
+    } catch (e: any) {
+      console.log("Error:", e);
     }
   };
-
   // Loader component
   const Loader = () => {
     return (
@@ -309,6 +274,7 @@ export default function Page() {
       </div>
     </div>
   );
+
   return (
     <main>
       <Toaster richColors position="top-right" />

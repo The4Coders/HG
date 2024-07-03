@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import ScrollReveal from 'scrollreveal';
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import ScrollReveal from "scrollreveal";
 
 const SecondSection: React.FC = () => {
   const [expandedItem, setExpandedItem] = useState<number | null>(null);
 
   const dummyTexts = [
-    'Your primary care physician may refer you to a dermatologist if they suspect or diagnose a skin',
-    'you can schedule an appointment directly with a dermatologist without a referral',
-    'Check your plan to see if dermatology services are covered and if you need',
-    'Find a dermatologist who is qualified and suits your needs. Consider factors like location',
+    "Your primary care physician may refer you to a dermatologist if they suspect or diagnose a skin",
+    "you can schedule an appointment directly with a dermatologist without a referral",
+    "Check your plan to see if dermatology services are covered and if you need",
+    "Find a dermatologist who is qualified and suits your needs. Consider factors like location",
   ];
 
   const toggleItem = (index: number) => {
@@ -23,19 +23,19 @@ const SecondSection: React.FC = () => {
   useEffect(() => {
     const sr = ScrollReveal();
 
-    sr.reveal('.left', {
+    sr.reveal(".left", {
       duration: 1500,
-      origin: 'left',
-      distance: '350px',
-      easing: 'ease-out',
+      origin: "left",
+      distance: "350px",
+      easing: "ease-out",
       reset: true,
     });
 
-    sr.reveal('.right', {
+    sr.reveal(".right", {
       duration: 1500,
-      origin: 'right',
-      distance: '350px',
-      easing: 'ease-out',
+      origin: "right",
+      distance: "350px",
+      easing: "ease-out",
       reset: true,
     });
   }, []);
@@ -45,8 +45,10 @@ const SecondSection: React.FC = () => {
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-x-8 md:gap-x-24">
         <div className="w-full md:w-[600px] left">
           <h2 className="text-3xl md:text-5xl font-bold text-gray-500">
-            Top-Quality{' '}
-            <span className="text-[#063b3f] text-4xl md:text-6xl">Virtual Primary</span>{' '}
+            Top-Quality{" "}
+            <span className="text-[#063b3f] text-4xl md:text-6xl">
+              Virtual Primary
+            </span>{" "}
             Care Visits
           </h2>
           <p className="mt-6 text-gray-600 md:w-[510px] leading-[1.8]">
@@ -56,10 +58,10 @@ const SecondSection: React.FC = () => {
           </p>
           <ul className="mt-8 space-y-4 grid grid-cols-2">
             {[
-              'Meet The Doctor You Want',
-              'Get The Care You Want',
-              'Get 24/7 Full Support',
-              'Get The Best Health Services',
+              "Meet The Doctor You Want",
+              "Get The Care You Want",
+              "Get 24/7 Full Support",
+              "Get The Best Health Services",
             ].map((text, index) => (
               <li
                 key={index}
@@ -93,9 +95,7 @@ const SecondSection: React.FC = () => {
             ))}
           </ul>
           <Link href="/telemedicine">
-            <button
-              className="bg-[#063b3f] text-white text-sm md:text-[20px] mt-8 md:mt-12 py-2 px-6 rounded-[50px] hover:bg-[#045357] transition duration-300 h-[60px] md:w-56 hover:transform hover:translate-x-4 hover:shadow-lg moving-wave-button"
-            >
+            <button className="bg-[#063b3f] text-white text-sm md:text-[20px] mt-8 md:mt-12 py-2 px-6 rounded-[50px] hover:bg-[#045357] transition duration-300 h-[60px] md:w-56 hover:transform hover:translate-x-4 hover:shadow-lg moving-wave-button">
               See Doctors
             </button>
           </Link>
@@ -104,16 +104,16 @@ const SecondSection: React.FC = () => {
         <div className="mb-8 md:mb-0 w-full md:w-[600px] right group">
           <div className="relative">
             <Image
-              src="/images/consultant.jpg"
+              src="/consultant.jpg"
               alt="Doctor"
               width={700}
               height={700}
               className="w-full h-auto md:h-[600px] relative z-20 border border-black border-opacity-30"
               style={{
-                borderTopLeftRadius: '250px',
-                borderBottomRightRadius: '200px',
-                borderBottomLeftRadius: '200px',
-                borderTopRightRadius: '200px',
+                borderTopLeftRadius: "250px",
+                borderBottomRightRadius: "200px",
+                borderBottomLeftRadius: "200px",
+                borderTopRightRadius: "200px",
               }}
             />
             <div className="absolute top-8 left-32 md:left-12 bg-white p-4 rounded-lg shadow-md opacity-0 z-10 transition-all duration-500 group-hover:left-[-40px] group-hover:opacity-65">
@@ -204,7 +204,7 @@ const SecondSection: React.FC = () => {
         }
 
         .moving-wave-button::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: -120%;
