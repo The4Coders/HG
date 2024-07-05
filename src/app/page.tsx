@@ -1,6 +1,5 @@
 import Navbar from "./LandingPage/Navbar/navbar";
 import dynamic from "next/dynamic";
-import FindNearestHospital from "./LandingPage/Sections/findNearestHospital";
 
 const DynamicHeroSection = dynamic(
   () => import("./LandingPage/Sections/heroSection"),
@@ -44,7 +43,6 @@ export default function page() {
       <DynamicHeroSection />
       <DynamicSecondSection />
       {/* <DynamicCarexaSection /> */}
-      <FindNearestHospital />
       <DynamicFourthSection />
       <DynamicAnimationSection />
       <DynamicFooter />
