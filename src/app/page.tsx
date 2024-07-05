@@ -1,5 +1,6 @@
 import Navbar from "./LandingPage/Navbar/navbar";
 import dynamic from "next/dynamic";
+import FindNearestHospital from "./LandingPage/Sections/findNearestHospital";
 
 const DynamicHeroSection = dynamic(
   () => import("./LandingPage/Sections/heroSection"),
@@ -13,12 +14,13 @@ const DynamicSecondSection = dynamic(
     ssr: false,
   }
 );
-const DynamicCarexaSection = dynamic(
-  () => import("./LandingPage/Sections/carexaSection"),
-  {
-    ssr: false,
-  }
-);
+// const DynamicCarexaSection = dynamic(
+//   () => import("./LandingPage/Sections/carexaSection"),
+//   {
+//     ssr: false,
+//   }
+// );
+
 const DynamicFourthSection = dynamic(
   () => import("./LandingPage/Sections/fourthSection"),
   {
@@ -41,7 +43,8 @@ export default function page() {
       <Navbar />
       <DynamicHeroSection />
       <DynamicSecondSection />
-      <DynamicCarexaSection />
+      {/* <DynamicCarexaSection /> */}
+      <FindNearestHospital />
       <DynamicFourthSection />
       <DynamicAnimationSection />
       <DynamicFooter />
