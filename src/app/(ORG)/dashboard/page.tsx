@@ -1,3 +1,4 @@
+//
 "use client";
 
 import BarChartComponent from "@/components/charts/BarChartComponent";
