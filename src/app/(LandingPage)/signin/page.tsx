@@ -35,11 +35,6 @@ const SignIn: React.FC = () => {
       return;
     }
 
-    // if (password !== confirmPassword) {
-    //   setError("Passwords do not match");
-    //   return;
-    // }
-
     const res = await signIn("credentials", {
       redirect: false,
       email,
@@ -121,7 +116,12 @@ const SignIn: React.FC = () => {
                     />
                   </svg>
                 </button>
-                <button className="flex items-center justify-center bg-white py-2 rounded-md w-[40px] border border-[#eeeeee]">
+                <button
+                  onClick={() => {
+                    signIn("github");
+                  }}
+                  className="flex items-center justify-center bg-white py-2 rounded-md w-[40px] border border-[#eeeeee]"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"

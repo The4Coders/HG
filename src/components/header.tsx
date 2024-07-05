@@ -18,7 +18,10 @@ import {
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import { NavItems } from "@/app/config";
+import { signOut, useSession } from "next-auth/react";
 export default function Header() {
+  const { data: session }: any = useSession();
+
   const navItems = NavItems();
   const [isNavOpen, setIsNavOpen] = useState(false);
   return (
@@ -41,6 +44,14 @@ export default function Header() {
 
         <span className="text-xl font-bold">Health Guardian</span>
       </Link>
+      {!session ? (
+        <></>
+      ) : (
+        <>
+          {/* Session User should display instead */}
+          <h1 className="text-2xl">Welcome {session.user?.email} !</h1>
+        </>
+      )}
 
       <div className="ml-4 flex items-center gap-3">
         <DropdownMenu>
@@ -62,7 +73,13 @@ export default function Header() {
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem>Support</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Logout
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 

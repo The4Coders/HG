@@ -1,3 +1,4 @@
+import Navbar from "@/app/LandingPage/Navbar/navbar";
 import AreaChartComponent from "@/components/charts/AreaChartComponent";
 import BarChartComponent from "@/components/charts/BarChartComponent";
 import LineChartComponent from "@/components/charts/LineChartComponent";
@@ -11,9 +12,17 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import Image from "next/image";
-export default function page() {
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+
+export default async function page() {
+  const session = await getServerSession();
+  if (!session) {
+    redirect("/signin");
+  }
   return (
     <main>
+      {/* <Navbar /> */}
       <Layout>
         <main className=" bg-white w-full">
           <Breadcrumb className="mt-6">

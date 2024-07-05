@@ -61,8 +61,8 @@ const Call = () => {
         </div>
       </header>
 
-      <div className="p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="md:col-span-2">
+      <div className="p-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="lg:col-span-2">
           <div className="bg-white p-4 mb-4 rounded-lg shadow-md">
             <Room />
           </div>
@@ -72,18 +72,20 @@ const Call = () => {
             {activities.map((activity, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between mb-4"
+                className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 space-y-2 md:space-y-0"
               >
-                <Image
-                  src="/profilePic.jpg"
-                  alt={activity.name}
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
-                <p className="flex-grow mx-2 text-[#045357] min-w-[120px]">
-                  {activity.name}
-                </p>
+                <div className="flex items-center">
+                  <Image
+                    src="/profilePic.jpg"
+                    alt={activity.name}
+                    width={32}
+                    height={32}
+                    className="rounded-full"
+                  />
+                  <p className="flex-grow mx-2 text-[#045357] min-w-[120px]">
+                    {activity.name}
+                  </p>
+                </div>
                 <p className="min-w-[80px] text-[#004d40]">{activity.date}</p>
                 <p className="min-w-[80px] text-[#004d40]">{activity.time}</p>
                 <p className="flex-grow mx-2 min-w-[160px] text-[#004d40]">
