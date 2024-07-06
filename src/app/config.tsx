@@ -1,6 +1,14 @@
 import { usePathname } from "next/navigation";
 
-import { Calendar, Home, LogOut, Phone, Settings, User } from "lucide-react";
+import {
+  Calendar,
+  Home,
+  LogOut,
+  MessageCircleMore,
+  Phone,
+  Settings,
+  User,
+} from "lucide-react";
 export const NavItems = () => {
   const pathname = usePathname();
 
@@ -27,6 +35,13 @@ export const NavItems = () => {
       href: "/appointments",
       icon: <Calendar size={20} />,
       active: isNavItemActive(pathname, "/appointment"),
+      position: "top",
+    },
+    {
+      name: "Messages",
+      href: "/chats",
+      icon: <MessageCircleMore size={20} />,
+      active: isNavItemActive(pathname, "/chats"),
       position: "top",
     },
     {
@@ -68,10 +83,10 @@ export const OrgNavItems = () => {
       position: "top",
     },
     {
-      name: "Doctors",
-      href: "/doctors",
+      name: "Staffs",
+      href: "/staff",
       icon: <User size={20} />,
-      active: isNavItemActive(pathname, "/doctors"),
+      active: isNavItemActive(pathname, "/staff"),
       position: "top",
     },
     {
