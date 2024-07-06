@@ -1,5 +1,5 @@
 "use client";
-import Layout from "@/components/layout";
+import OrgLayout from "@/components/orgLayout";
 
 import { CirclePlus, X } from "lucide-react";
 import { useState } from "react";
@@ -82,7 +82,7 @@ export default function Page() {
 
   return (
     <main>
-      <Layout>
+      <OrgLayout>
         <main className=" bg-white w-full">
           {/* Section to add Patient */}
           <section className="m-auto my-4 w-full gap-y-4 flex flex-col lg:flex-row justify-start lg:justify-evenly items-start lg:items-center">
@@ -295,7 +295,7 @@ export default function Page() {
             </div>
           )}
         </main>
-      </Layout>
+      </OrgLayout>
     </main>
   );
 }
