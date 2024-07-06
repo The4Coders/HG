@@ -1,6 +1,6 @@
 "use client";
-//
 import OrgLayout from "@/components/orgLayout";
+
 import { CirclePlus, X } from "lucide-react";
 import { useState } from "react";
 
@@ -86,7 +86,7 @@ export default function Page() {
         <main className=" bg-white w-full">
           {/* Section to add Patient */}
           <section className="m-auto my-4 w-full gap-y-4 flex flex-col lg:flex-row justify-start lg:justify-evenly items-start lg:items-center">
-            <h2 className="font-bold text-2xl text-black">All Doctors</h2>
+            <h2 className="font-bold text-2xl text-black">All Staffs</h2>
             <form className="w-[90%] lg:w-[60%]">
               <label
                 htmlFor="default-search"
@@ -129,7 +129,7 @@ export default function Page() {
               className="bg-primary text-white p-1.5 px-2 rounded-md flex justify-start items-center gap-x-2"
             >
               <CirclePlus color="white" size={15} />
-              Add a Doctor
+              Add a Staff
             </button>
           </section>
 
@@ -209,7 +209,7 @@ export default function Page() {
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-2xl font-bold">Add Doctor</h2>
+                  <h2 className="text-2xl font-bold">Add Staff</h2>
                   <button
                     className="text-gray-600 hover:text-gray-800"
                     onClick={handleModalToggle}

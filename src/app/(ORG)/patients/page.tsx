@@ -78,12 +78,9 @@ export default function Page() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(
-          "https://reminiscent-tree-tested-brick-production.pipeops.app/api/patients",
-          {
-            cache: "no-store",
-          }
-        );
+        const res = await fetch("/api/patients", {
+          cache: "no-store",
+        });
         if (!res.ok) {
           throw new Error("Failed to fetch Patients");
         }
@@ -180,16 +177,13 @@ export default function Page() {
     };
     console.log("Payload:", payload);
     try {
-      const res = await fetch(
-        "https://reminiscent-tree-tested-brick-production.pipeops.app/api/patients",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name, age, phone, diagnosis }),
-        }
-      );
+      const res = await fetch("/api/patients", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, age, phone, diagnosis }),
+      });
       // if (res.ok) {
       //   console.log("Patient Added!");
       //   setTimeout(() => {
@@ -229,12 +223,9 @@ export default function Page() {
   const handleDeleteConfirm = async () => {
     if (selectedPatientId) {
       try {
-        const res = await fetch(
-          `http://localhost:3000/api/patients?id=${selectedPatientId}`,
-          {
-            method: "DELETE",
-          }
-        );
+        const res = await fetch(`/api/patients?id=${selectedPatientId}`, {
+          method: "DELETE",
+        });
         if (res.ok) {
           setPatients((prevPatients) =>
             prevPatients.filter((patient) => patient._id !== selectedPatientId)
