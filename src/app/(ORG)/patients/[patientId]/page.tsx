@@ -86,7 +86,7 @@ export default function Page() {
           {/* patient */}
           <section className="px-8 mt-8 gap-y-6  flex flex-col lg:flex-row justify-between w-full ">
             {/* edit patient */}
-            <div className="w-full lg:w-[35%] shadow rounded-md p-8">
+            <div className="w-full lg:w-[38%] shadow rounded-md p-8">
               <section className="mt-6 flex justify-start gap-x-6 items-center">
                 {/* logo here */}
                 <div className="w-14 h-14 flex justify-center items-center rounded-full">
@@ -173,7 +173,7 @@ export default function Page() {
           {/* test report and prescriptions sections */}
           <section className="px-8 mt-6 flex flex-col lg:flex-row justify-between w-full">
             {/* test reports */}
-            <div className="p-8 w-full lg:w-[40%] shadow rounded-md h-auto">
+            <div className="p-8 w-full lg:w-[38%] shadow rounded-md h-auto">
               {/* title */}
               <div className="flex mb-8 justify-between items-center">
                 <h2 className=" text-xl font-bold">Test Reports</h2>
@@ -231,12 +231,12 @@ export default function Page() {
                   </div>
                 </div>
               </section>
-              <p className="cursor-pointer flex justify-center items-center text-xl text-center text-black font-bold border-b ">
+              <p className="pb-8 cursor-pointer flex justify-center items-center text-xl text-center text-black font-bold border-b ">
                 View all reports <ArrowRight />
               </p>
             </div>
             {/* prescriptions */}
-            <div className="p-8 w-full lg:w-[55%] shadow rounded-md h-auto">
+            <div className="p-8 w-full lg:w-[60%] shadow rounded-md h-auto">
               {/* title */}
               <div className="flex mb-8 justify-between items-center">
                 <h2 className=" text-xl font-bold">Prescriptions</h2>

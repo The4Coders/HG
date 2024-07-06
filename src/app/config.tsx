@@ -83,10 +83,10 @@ export const OrgNavItems = () => {
       position: "top",
     },
     {
-      name: "Doctors",
-      href: "/doctors",
+      name: "Staffs",
+      href: "/staff",
       icon: <User size={20} />,
-      active: isNavItemActive(pathname, "/doctors"),
+      active: isNavItemActive(pathname, "/staff"),
       position: "top",
     },
     {

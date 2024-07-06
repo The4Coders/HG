@@ -105,8 +105,8 @@ export default function Page() {
                 <BarChartComponent />
               </div>
             </div>
-            <div className="w-[30%] shadow-md p-3">
-              <p className="my-4 text-black font-semibold text-xl ">
+            <div className="ms-6 w-[30%] p-3">
+              <p className="ms-4 my-4 text-black font-semibold text-xl ">
                 Upcoming Appointments
               </p>
 
@@ -114,7 +114,7 @@ export default function Page() {
                 mode="single"
                 selected={date}
                 onSelect={setDate}
-                className="rounded-md border"
+                className="rounded-md w-full"
               />
             </div>
             <div></div>

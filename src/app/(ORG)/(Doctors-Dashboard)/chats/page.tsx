@@ -1,10 +1,3 @@
-// "use client";
-// import { useState } from "react";
-// import Layout from "@/components/layout";
-
-// interface Message {
-//   id: number;
-//   name: strin
 "use client";
 import { useState, useEffect } from "react";
 import Layout from "@/components/layout";
