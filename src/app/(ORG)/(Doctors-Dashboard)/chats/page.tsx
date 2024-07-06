@@ -1,15 +1,3 @@
-// import Layout from "@/components/layout";
-// export default function page() {
-//   return (
-//     <main>
-//       <Layout>
-//         <main>
-//           <h1>Staff page here</h1>
-//         </main>
-//       </Layout>
-//     </main>
-//   );
-// }
 "use client";
 import { useState } from "react";
 import Layout from "@/components/layout";
@@ -63,7 +51,11 @@ export default function Page() {
 
   return (
     <Layout>
-      <div className="flex w-full h-full">
+      <h2 className="text-2xl font-bold p-6 w-full text-white bg-primary">
+        Your Messages
+      </h2>
+      <div className=" flex w-full h-[700px] pe-4">
+        {/* title here */}
         {/* Sidebar */}
         <aside className="w-1/4 border-r border-gray-300 bg-gray-100 p-4">
           <h2 className="text-lg font-bold mb-4">Chats</h2>
