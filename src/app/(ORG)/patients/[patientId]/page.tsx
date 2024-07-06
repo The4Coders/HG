@@ -14,6 +14,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 
 interface PageParams {
   // Define your type for params here if needed
@@ -134,7 +135,6 @@ export default function Page() {
               {/* title */}
               <div className="flex mb-8 justify-between items-center">
                 <h2 className=" text-xl font-bold">Observations</h2>
-                <h2 className="underline text-xl font-bold">Add</h2>
               </div>
               <section className="space-y-5">
                 {/*  */}
@@ -143,7 +143,7 @@ export default function Page() {
                     She is doing okay now, she can be relaeased
                   </h2>
                   <div className="gap-y-3 space-y-2 text-gray-400 text-lg flex justify-between items-center">
-                    <h2>Dr. Akin George</h2>
+                    <h2>From: Dr. Akin George</h2>
                     <h2>7/May/2024</h2>
                   </div>
                 </div>
@@ -153,7 +153,7 @@ export default function Page() {
                     She is doing okay now, she can be relaeased
                   </h2>
                   <div className="gap-y-3 space-y-2 text-gray-400 text-lg flex justify-between items-center">
-                    <h2>Dr. Akin George</h2>
+                    <h2>From: Dr. Akin George</h2>
                     <h2>7/May/2024</h2>
                   </div>
                 </div>
@@ -163,7 +163,7 @@ export default function Page() {
                     She is doing okay now, she can be relaeased
                   </h2>
                   <div className="gap-y-3 space-y-2 text-gray-400 text-lg flex justify-between items-center">
-                    <h2>Dr. Akin George</h2>
+                    <h2>From: Dr. Akin George</h2>
                     <h2>7/May/2024</h2>
                   </div>
                 </div>
@@ -171,7 +171,71 @@ export default function Page() {
             </div>
           </section>
           {/* test report and prescriptions sections */}
-          <section className="mt-6"></section>
+          <section className="px-8 mt-6 border-2 border-primary flex flex-col lg:flex-row justify-between w-full">
+            {/* observations */}
+            <div className="p-8 w-full lg:w-[40%] shadow rounded-md h-auto">
+              {/* title */}
+              <div className="flex mb-8 justify-between items-center">
+                <h2 className=" text-xl font-bold">Test Reports</h2>
+                <h2 className=" text-xl font-bold border-b-2 border-black">
+                  Add
+                </h2>
+              </div>
+              <section className="space-y-5">
+                {/*  */}
+                <div className="border-b border-b-gray-400 ">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-xl text-black">Blood Test</h2>
+                    <button className="px-4 py-2 border rounded-lg">
+                      View
+                    </button>
+                  </div>
+                  <div className="mb-4 gap-y-3 space-y-2 text-gray-400 text-lg flex justify-between items-center">
+                    <h2>3rd June 2024</h2>
+                  </div>
+                </div>
+                {/*  */}
+                <div className="border-b border-b-gray-400 ">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-xl text-black">CT Scan(Abdomen)</h2>
+                    <button className="px-4 py-2 border rounded-lg">
+                      View
+                    </button>
+                  </div>
+                  <div className="mb-4 gap-y-3 space-y-2 text-gray-400 text-lg flex justify-between items-center">
+                    <h2>3rd May 2024</h2>
+                  </div>
+                </div>
+                {/*  */}
+                <div className="border-b border-b-gray-400 ">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-xl text-black">Pathology Test</h2>
+                    <button className="px-4 py-2 border rounded-lg">
+                      View
+                    </button>
+                  </div>
+                  <div className="mb-4 gap-y-3 space-y-2 text-gray-400 text-lg flex justify-between items-center">
+                    <h2>4th June 2024</h2>
+                  </div>
+                </div>
+                {/*  */}
+                <div className="">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-xl text-black">Eye Test</h2>
+                    <button className="px-4 py-2 border rounded-lg">
+                      View
+                    </button>
+                  </div>
+                  <div className="mb-4 gap-y-3 space-y-2 text-gray-400 text-lg flex justify-between items-center">
+                    <h2>3rd June 2024</h2>
+                  </div>
+                </div>
+              </section>
+              <p className="flex justify-center items-center text-xl text-center text-black font-bold border-b ">
+                View all reports <ArrowRight />
+              </p>
+            </div>
+          </section>
         </main>
       </OrgLayout>
     </main>
