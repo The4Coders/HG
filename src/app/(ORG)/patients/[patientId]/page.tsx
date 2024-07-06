@@ -171,8 +171,8 @@ export default function Page() {
             </div>
           </section>
           {/* test report and prescriptions sections */}
-          <section className="px-8 mt-6 border-2 border-primary flex flex-col lg:flex-row justify-between w-full">
-            {/* observations */}
+          <section className="px-8 mt-6 flex flex-col lg:flex-row justify-between w-full">
+            {/* test reports */}
             <div className="p-8 w-full lg:w-[40%] shadow rounded-md h-auto">
               {/* title */}
               <div className="flex mb-8 justify-between items-center">
@@ -231,9 +231,72 @@ export default function Page() {
                   </div>
                 </div>
               </section>
-              <p className="flex justify-center items-center text-xl text-center text-black font-bold border-b ">
+              <p className="cursor-pointer flex justify-center items-center text-xl text-center text-black font-bold border-b ">
                 View all reports <ArrowRight />
               </p>
+            </div>
+            {/* prescriptions */}
+            <div className="p-8 w-full lg:w-[55%] shadow rounded-md h-auto">
+              {/* title */}
+              <div className="flex mb-8 justify-between items-center">
+                <h2 className=" text-xl font-bold">Prescriptions</h2>
+                <h2 className=" text-xl font-bold border-b border-b-black cursor-pointer">
+                  Add
+                </h2>
+              </div>
+              <section className="space-y-5">
+                {/*  */}
+                <div className="border-b border-b-gray-400 ">
+                  <div className="flex flex-row justify-between items-center">
+                    <h2 className="text-xl text-black">
+                      Urinary Trac Infections:
+                    </h2>
+                    <h2 className="text-xl text-black">2weeks</h2>
+                  </div>
+                  <div className="mt-8 mb-8 gap-y-3 space-y-2 text-gray-400 text-lg flex justify-between">
+                    <div className="w-[30%]">
+                      <h2 className="text-xl font-semibold text-black">
+                        Medications:
+                      </h2>
+                    </div>
+                    <div className="w-[30%]">
+                      <h2 className="text-lg text-gray-400">Usbesikan Syrup</h2>
+                      <h2 className="text-lg text-gray-400">Usbesikan Syrup</h2>
+                      <h2 className="text-lg text-gray-400">Usbesikan Syrup</h2>
+                    </div>
+                    <div className="flex flex-col ml-auto w-[30%]">
+                      <h2 className="ml-auto text-lg text-gray-400">1-1</h2>
+                      <h2 className="ml-auto text-lg text-gray-400">1-1</h2>
+                      <h2 className="ml-auto text-lg text-gray-400">1-1</h2>
+                    </div>
+                  </div>
+                </div>
+                {/*  */}
+                <div className="flex flex-row justify-between items-center">
+                  <h2 className="text-xl text-black">
+                    Urinary Trac Infections:
+                  </h2>
+                  <h2 className="text-xl text-black">2weeks</h2>
+                </div>
+                <div className="mt-8 gap-y-3 space-y-2 text-gray-400 text-lg flex justify-between">
+                  <div className="w-[30%]">
+                    <h2 className="text-xl font-semibold text-black">
+                      Medications:
+                    </h2>
+                  </div>
+                  <div className="w-[30%]">
+                    <h2 className="text-lg text-gray-400">Usbesikan Syrup</h2>
+                    <h2 className="text-lg text-gray-400">Usbesikan Syrup</h2>
+                    <h2 className="text-lg text-gray-400">Usbesikan Syrup</h2>
+                  </div>
+                  <div className="flex flex-col ml-auto w-[30%]">
+                    <h2 className="ml-auto text-lg text-gray-400">1-1</h2>
+                    <h2 className="ml-auto text-lg text-gray-400">1-1</h2>
+                    <h2 className="ml-auto text-lg text-gray-400">1-1</h2>
+                  </div>
+                </div>
+                {/*  */}
+              </section>
             </div>
           </section>
         </main>
