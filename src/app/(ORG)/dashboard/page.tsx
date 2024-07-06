@@ -3,6 +3,7 @@
 import BarChartComponent from "@/components/charts/BarChartComponent";
 import OrgLayout from "@/components/orgLayout";
 import { Calendar } from "@/components/ui/calendar";
+import Image from "next/image";
 import {
   Activity,
   ArrowDown,
@@ -187,17 +188,8 @@ export default function Page() {
                 </div>
               </div>
             </div>
-            <div className="w-[30%] shadow-md p-3">
-              <p className="my-4 text-black font-semibold text-xl ">
-                Upcoming Appointments
-              </p>
-
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                className="rounded-md border"
-              />
+            <div className="w-[28%] h-auto shadow-md p-3">
+              <Image src="/appointments.jpg" alt="" width={800} height={800} />
             </div>
             <div></div>
           </section>
