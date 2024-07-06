@@ -1,7 +1,13 @@
-"use client";
-import { useState } from "react";
-import Layout from "@/components/layout";
+// "use client";
+// import { useState } from "react";
+// import Layout from "@/components/layout";
 
+// interface Message {
+//   id: number;
+//   name: strin
+"use client";
+import { useState, useEffect } from "react";
+import Layout from "@/components/layout";
 interface Message {
   id: number;
   name: string;
@@ -27,9 +33,11 @@ export default function Page() {
       sentByUser: false,
     },
   ]);
+  const [isTyping, setIsTyping] = useState(false);
 
   const handleUserClick = (user: string) => {
     setSelectedUser(user);
+    setIsTyping(false);
   };
 
   const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +54,19 @@ export default function Page() {
       };
       setMessages([...messages, newMessageObj]);
       setNewMessage("");
+      setIsTyping(true);
+
+      // Simulate receiving a reply after 2 seconds
+      setTimeout(() => {
+        const replyMessageObj: Message = {
+          id: messages.length + 2,
+          name: selectedUser,
+          message: "Thanks for your message!",
+          sentByUser: false,
+        };
+        setMessages((prevMessages) => [...prevMessages, replyMessageObj]);
+        setIsTyping(false);
+      }, 2000);
     }
   };
 
@@ -54,8 +75,7 @@ export default function Page() {
       <h2 className="text-2xl font-bold p-6 w-full text-white bg-primary">
         Your Messages
       </h2>
-      <div className=" flex w-full h-[700px] pe-4">
-        {/* title here */}
+      <div className="flex w-full h-[700px] pe-4">
         {/* Sidebar */}
         <aside className="w-1/4 border-r border-gray-300 bg-gray-100 p-4">
           <h2 className="text-lg font-bold mb-4">Chats</h2>
@@ -107,6 +127,17 @@ export default function Page() {
                       </div>
                     </div>
                   ))}
+                {isTyping && (
+                  <div className="flex justify-start">
+                    <div className="max-w-xs p-2 rounded-lg bg-gray-200">
+                      <div className="typing-indicator">
+                        <span className="dot"></span>
+                        <span className="dot"></span>
+                        <span className="dot"></span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="mt-4 flex">
                 <input
