@@ -1,4 +1,3 @@
-//
 "use client";
 
 import BarChartComponent from "@/components/charts/BarChartComponent";
@@ -8,6 +7,7 @@ import {
   Activity,
   ArrowDown,
   ArrowUp,
+  EllipsisVertical,
   HeartPulse,
   Hospital,
   PersonStanding,
@@ -102,6 +102,89 @@ export default function Page() {
 
               <div className="w-full h-80 flex flex-col justify-center items-center">
                 <BarChartComponent />
+              </div>
+            </div>
+            <div className="w-[30%] shadow-md p-3">
+              <p className="my-4 text-black font-semibold text-xl ">
+                Upcoming Appointments
+              </p>
+
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                className="rounded-md border"
+              />
+            </div>
+            <div></div>
+          </section>
+          {/* 2nd section */}
+          <section className="border-2 justify-between my-4 flex flex-col md:flex-row gap-y-3 items-center gap-x-3 pe-3">
+            <div className="space-y-4 w-[60%] p-3 ps-4">
+              <div className="px-4 py-3 mb-4 w-full h-80 ">
+                <div className="flex justify-between items-center">
+                  <p className="text-black font-semibold text-lg">
+                    Omojola Zion
+                  </p>
+                  <p>Antental</p>
+                  <p>Female</p>
+                  <p>June 14, 2024 </p>
+                  <p>9:30pm</p>
+                  <button className="ms-4 bg-[#11814B33] rounded-lg px-2 py-1.5">
+                    Approved
+                  </button>
+                  <button className="p-2 bg-gray-100 rounded-md">
+                    <EllipsisVertical />
+                  </button>
+                </div>
+                {/*  */}
+                <div className="mt-4 flex justify-between items-center">
+                  <p className="text-black font-semibold text-lg">
+                    Oladele Olekan
+                  </p>
+                  <p>Checkup</p>
+                  <p>Female</p>
+                  <p>June 14, 2024 </p>
+                  <p>9:30pm</p>
+                  <button className="bg-[#BF670033] text-[#BF6700] rounded-lg px-2 py-1.5">
+                    Pending
+                  </button>
+                  <button className="p-2 bg-gray-100 rounded-md">
+                    <EllipsisVertical />
+                  </button>
+                </div>
+                {/*  */}
+                <div className="mt-4 flex justify-between items-center">
+                  <p className="text-black font-semibold text-lg">
+                    Daniel Thomas
+                  </p>
+                  <p>Checkup</p>
+                  <p>Female</p>
+                  <p>June 14, 2024 </p>
+                  <p>9:30pm</p>
+                  <button className="bg-[#BF670033] text-[#BF6700] rounded-lg px-2 py-1.5">
+                    Pending
+                  </button>
+                  <button className="p-2 bg-gray-100 rounded-md">
+                    <EllipsisVertical />
+                  </button>
+                </div>
+                {/*  */}
+                <div className="mt-4 flex justify-between items-center">
+                  <p className="text-black font-semibold text-lg">
+                    Ekene Philip
+                  </p>
+                  <p>Antental</p>
+                  <p>Female</p>
+                  <p>June 14, 2024 </p>
+                  <p>9:30pm</p>
+                  <button className=" ms-4 bg-[#11814B33] rounded-lg px-2 py-1.5">
+                    Approved
+                  </button>
+                  <button className="p-2 bg-gray-100 rounded-md">
+                    <EllipsisVertical />
+                  </button>
+                </div>
               </div>
             </div>
             <div className="w-[30%] shadow-md p-3">
