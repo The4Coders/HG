@@ -1,5 +1,6 @@
 import Navbar from "./LandingPage/Navbar/navbar";
 import dynamic from "next/dynamic";
+import FloatingIcon from "./LandingPage/Sections/floatingIcon";
 
 const DynamicHeroSection = dynamic(
   () => import("./LandingPage/Sections/heroSection"),
@@ -46,6 +47,7 @@ export default function page() {
       <DynamicFourthSection />
       <DynamicAnimationSection />
       <DynamicFooter />
+      <FloatingIcon />
     </main>
   );
 }
