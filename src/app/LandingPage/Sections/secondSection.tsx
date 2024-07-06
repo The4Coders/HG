@@ -104,7 +104,7 @@ const SecondSection: React.FC = () => {
         <div className="mb-8 md:mb-0 w-full md:w-[600px] right group">
           <div className="relative">
             <Image
-              src="/images/consultant.jpg"
+              src="/consultant.jpg"
               alt="Doctor"
               width={700}
               height={700}

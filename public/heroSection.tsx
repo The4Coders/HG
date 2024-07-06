@@ -1,37 +1,37 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState, useMemo } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { ClipboardPlus, Hospital, MessageCircleMore, Pill } from "lucide-react";
-import ScrollReveal from "scrollreveal";
+import React, { useEffect, useState, useMemo } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ClipboardPlus, Hospital, MessageCircleMore, Pill } from 'lucide-react';
+import ScrollReveal from 'scrollreveal';
 
 const HeroSection: React.FC = () => {
-  const [animatedText, setAnimatedText] = useState("");
+  const [animatedText, setAnimatedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentDiv, setCurrentDiv] = useState(0);
 
   const divs = [
-    { className: "top-28 right-0", icon: <Pill />, text: "Medicine" },
+    { className: 'top-28 right-0', icon: <Pill />, text: 'Medicine' },
     {
-      className: "bottom-56 left-0",
+      className: 'bottom-56 left-0',
       icon: <MessageCircleMore />,
-      text: "24/7 Consultation",
+      text: '24/7 Consultation',
     },
     {
-      className: "bottom-28 right-24",
+      className: 'bottom-28 right-24',
       icon: <ClipboardPlus />,
-      text: "Electronic",
+      text: 'Electronic',
     },
     {
-      className: "top-32 left-24",
+      className: 'top-32 left-24',
       icon: <Hospital />,
-      text: "25 Clinic Locations",
+      text: '25 Clinic Locations',
     },
   ];
 
   const texts = useMemo(
-    () => ["Health", "Medicine", "Wellness", "Fitness", "Nutrition"],
+    () => ['Health', 'Medicine', 'Wellness', 'Fitness', 'Nutrition'],
     []
   );
 
@@ -44,7 +44,7 @@ const HeroSection: React.FC = () => {
   }, [divs.length]);
 
   useEffect(() => {
-    let animatedString = "";
+    let animatedString = '';
     let isCancelled = false;
 
     const animateText = () => {
@@ -60,7 +60,7 @@ const HeroSection: React.FC = () => {
 
       setTimeout(() => {
         if (isCancelled) return;
-        document.getElementById("animatedText")?.classList.add("slide-out");
+        document.getElementById('animatedText')?.classList.add('slide-out');
       }, texts[currentIndex].length * delay + 500);
     };
 
@@ -72,11 +72,11 @@ const HeroSection: React.FC = () => {
   }, [currentIndex, texts]);
 
   const handleAnimationEnd = () => {
-    document.getElementById("animatedText")?.classList.remove("slide-out");
-    document.getElementById("animatedText")?.classList.add("slide-in");
-    setAnimatedText("");
+    document.getElementById('animatedText')?.classList.remove('slide-out');
+    document.getElementById('animatedText')?.classList.add('slide-in');
+    setAnimatedText('');
     setTimeout(() => {
-      document.getElementById("animatedText")?.classList.remove("slide-in");
+      document.getElementById('animatedText')?.classList.remove('slide-in');
       const nextIndex = (currentIndex + 1) % texts.length;
       setCurrentIndex(nextIndex);
     }, 0);
@@ -85,19 +85,19 @@ const HeroSection: React.FC = () => {
   useEffect(() => {
     const sr = ScrollReveal();
 
-    sr.reveal(".reveal", {
-      distance: "250px",
+    sr.reveal('.reveal', {
+      distance: '250px',
       duration: 1800,
-      easing: "ease-out",
-      origin: "top",
+      easing: 'ease-out',
+      origin: 'top',
       reset: true,
     });
 
-    sr.reveal(".down", {
-      distance: "200px",
+    sr.reveal('.down', {
+      distance: '200px',
       duration: 1000,
-      easing: "ease-out",
-      origin: "bottom",
+      easing: 'ease-out',
+      origin: 'bottom',
       reset: true,
       interval: 100,
     });
@@ -108,12 +108,8 @@ const HeroSection: React.FC = () => {
       <div className="container mx-auto px-4 md:px-16 flex flex-col md:flex-row items-center h-full md:h-[100vh] ">
         <div className="first md:w-1/2 mb-8 md:mb-0 h-[600px] pt-20 reveal">
           <div className="text-4xl md:text-6xl font-bold text-gray-900 mb-4 pl-4 md:pl-10 reveal">
-            <h2 className="mb-4 text-gray-500 text-[50px] md:text-[70px]">
-              Where
-            </h2>
-            <h2 className="mb-4 text-gray-500 text-[50px] md:text-[70px]">
-              Tech Meets
-            </h2>
+            <h2 className="mb-4 text-gray-500 text-[50px] md:text-[70px]">Where</h2>
+            <h2 className="mb-4 text-gray-500 text-[50px] md:text-[70px]">Tech Meets</h2>
             <h2
               id="animatedText"
               className="text-[#063b3f] slide-in font-extrabold text-[70px] md:text-[90px]"
@@ -135,16 +131,16 @@ const HeroSection: React.FC = () => {
         </div>
         <div className="second md:w-1/2 relative reveal">
           <Image
-            src="/nurse.gif"
+            src="/images/nurse.gif"
             alt="Nurse"
             width={500}
             height={500}
-            className="w-full h-auto max-w-[500px] my-6 mx-auto border border-black border-opacity-30"
+            className="w-full h-auto max-w-[500px] my-6 mx-auto p-4 md:p-10"
             style={{
-              borderTopLeftRadius: "200px",
-              borderBottomRightRadius: "200px",
-              borderBottomLeftRadius: "90px",
-              borderTopRightRadius: "70px",
+              borderTopLeftRadius: '200px',
+              borderBottomRightRadius: '200px',
+              borderBottomLeftRadius: '90px',
+              borderTopRightRadius: '70px',
             }}
           />
           {divs.map((div, index) => (
@@ -153,7 +149,7 @@ const HeroSection: React.FC = () => {
               className={`absolute ${
                 div.className
               } bg-[#E6E4E5] p-3 border-[2px] border-white rounded-[50px] flex items-center space-x-2 blink-animation transition-all duration-1000 ${
-                currentDiv === index ? "fade-in" : "fade-out"
+                currentDiv === index ? 'fade-in' : 'fade-out'
               }`}
             >
               <i className={`bi ${div.icon} text-[#045357] text-2xl`}></i>
@@ -171,15 +167,13 @@ const HeroSection: React.FC = () => {
             {/* First content */}
             <div className="flex flex-col items-start p-4 rounded-lg down">
               <Image
-                src="/teeth.png"
+                src="/images/system/teeth.png"
                 alt="Teeth"
                 width={60}
                 height={60}
                 className="mb-5 rounded-[50px]"
               />
-              <h3 className="text-xl text-gray-800 font-bold mb-3">
-                Dentistry
-              </h3>
+              <h3 className="text-xl text-gray-800 font-bold mb-3">Dentistry</h3>
               <p className="text-[#E6E4E5] text-sm">
                 We are dedicated to providing award-winning dental care and
                 ensuring that your time with us is unlike any other dental
@@ -190,15 +184,13 @@ const HeroSection: React.FC = () => {
             {/* Second content */}
             <div className="flex flex-col items-start p-4 rounded-lg down">
               <Image
-                src="/brain.png"
+                src="/images/system/brain.png"
                 alt="Brain"
                 width={60}
                 height={60}
                 className="mb-5 rounded-[50px]"
               />
-              <h3 className="text-xl text-gray-800 font-bold mb-3">
-                Neurology
-              </h3>
+              <h3 className="text-xl text-gray-800 font-bold mb-3">Neurology</h3>
               <p className="text-[#E6E4E5] text-sm">
                 A physical exam and a neurological evaluation are likely to be
                 performed during your first appointment with a neurologist.
@@ -208,7 +200,7 @@ const HeroSection: React.FC = () => {
             {/* Third content */}
             <div className="flex flex-col items-start p-4 rounded-lg down">
               <Image
-                src="/eye.png"
+                src="/images/system/eye.png"
                 alt="Eye"
                 width={60}
                 height={60}
@@ -347,7 +339,7 @@ const HeroSection: React.FC = () => {
         }
 
         .moving-wave-button::before {
-          content: "";
+          content: '';
           position: absolute;
           top: 0;
           left: -120%;

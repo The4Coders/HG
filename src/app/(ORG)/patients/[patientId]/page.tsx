@@ -39,7 +39,7 @@ export default function Page() {
     const getPatientById = async () => {
       try {
         console.log("Fetching patient data...");
-        const res = await fetch(`http://localhost:3000/api/patients/${id}`, {
+        const res = await fetch(`/api/patients/${id}`, {
           cache: "no-store",
         });
 

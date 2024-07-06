@@ -78,7 +78,7 @@ export default function Page() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/patients", {
+        const res = await fetch("/api/patients", {
           cache: "no-store",
         });
         if (!res.ok) {
@@ -177,7 +177,7 @@ export default function Page() {
     };
     console.log("Payload:", payload);
     try {
-      const res = await fetch("http://localhost:3000/api/patients", {
+      const res = await fetch("/api/patients", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -223,12 +223,9 @@ export default function Page() {
   const handleDeleteConfirm = async () => {
     if (selectedPatientId) {
       try {
-        const res = await fetch(
-          `http://localhost:3000/api/patients?id=${selectedPatientId}`,
-          {
-            method: "DELETE",
-          }
-        );
+        const res = await fetch(`/api/patients?id=${selectedPatientId}`, {
+          method: "DELETE",
+        });
         if (res.ok) {
           setPatients((prevPatients) =>
             prevPatients.filter((patient) => patient._id !== selectedPatientId)
